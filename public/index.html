@@ -2,32 +2,45 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/assets/icon-128.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#2080FF" />
+    
+    <!-- Primary Metadata -->
+    <title>TAB Explorer — The File Explorer for Chrome Tabs</title>
     <meta
       name="description"
-      content="TAB Explorer turns your browser tabs into a structured, file-explorer-style workspace right inside Chrome's side panel. 100% local, fast, and organized."
+      content="TAB Explorer transforms your browser tabs into a structured, file-explorer-style workspace right inside Chrome's side panel. 100% local, ultra-fast, and free."
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/icon-128.png" />
+    <meta name="keywords" content="Chrome extension, tab manager, tab explorer, browser tabs, side panel, productivity, tab groups, local-first" />
+    <meta name="author" content="TAB Explorer" />
+    <meta name="theme-color" content="#2080FF" />
+
+    <!-- Favicons and App Icons -->
+    <link rel="icon" type="image/png" sizes="128x128" href="%PUBLIC_URL%/assets/icon-128.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="128x128" href="%PUBLIC_URL%/assets/icon-128.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TAB Explorer" />
+    <meta property="og:title" content="TAB Explorer — The File Explorer for Chrome Tabs" />
+    <meta property="og:description" content="Organize your browser tabs like files and folders right inside Chrome's side panel. 100% local-first, zero telemetry, and built for speed." />
+    <meta property="og:image" content="%PUBLIC_URL%/assets/marquee-promo-tile-1400x560.png" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TAB Explorer — The File Explorer for Chrome Tabs" />
+    <meta name="twitter:description" content="Organize your browser tabs like files and folders right inside Chrome's side panel. 100% local-first, zero telemetry, and built for speed." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/assets/marquee-promo-tile-1400x560.png" />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <title>TAB Explorer — Organize Browser Tabs in Chrome's Side Panel</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>You need to enable JavaScript to run TAB Explorer.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

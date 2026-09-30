@@ -99,6 +99,7 @@ export default function Footer() {
 
         {/* Bottom copyright line */}
         <div
+          className="footer-bottom-row"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -119,6 +120,16 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .footer-bottom-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 }

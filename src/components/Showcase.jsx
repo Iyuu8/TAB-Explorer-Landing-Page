@@ -97,6 +97,7 @@ export default function Showcase() {
 
           {/* Tab Switcher Pills */}
           <div
+            className="showcase-tab-bar"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -107,6 +108,7 @@ export default function Showcase() {
               gap: '4px',
               flexWrap: 'wrap',
               justifyContent: 'center',
+              maxWidth: '100%',
             }}
           >
             {screens.map((item, idx) => {
@@ -115,19 +117,19 @@ export default function Showcase() {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(idx)}
+                  className="showcase-tab-btn"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px',
-                    padding: '8px 18px',
+                    gap: '7px',
                     borderRadius: '100px',
-                    fontSize: '14px',
                     fontWeight: isActive ? 600 : 500,
                     backgroundColor: isActive ? 'var(--color-action)' : 'transparent',
                     color: isActive ? '#FFFFFF' : 'var(--color-ink)',
                     cursor: 'pointer',
                     transition: 'all 0.2s ease',
                     boxShadow: isActive ? 'var(--shadow-cta-glow)' : 'none',
+                    border: 'none',
                   }}
                 >
                   {item.icon}
@@ -144,11 +146,10 @@ export default function Showcase() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="bento-card"
+          className="bento-card showcase-card"
           style={{
             backgroundColor: '#FAFCFE',
             border: '1px solid var(--color-border)',
-            padding: '36px',
             borderRadius: '22px',
           }}
         >
@@ -231,6 +232,25 @@ export default function Showcase() {
           </div>
         </motion.div>
       </div>
+
+      <style>{`
+        .showcase-card {
+          padding: 36px;
+        }
+        .showcase-tab-btn {
+          padding: 8px 18px;
+          font-size: 14px;
+        }
+        @media (max-width: 640px) {
+          .showcase-card {
+            padding: 20px 16px !important;
+          }
+          .showcase-tab-btn {
+            padding: 6px 12px !important;
+            font-size: 12.5px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

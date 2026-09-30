@@ -623,7 +623,7 @@ export default function Features() {
                 />
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: '#64748B' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', color: '#64748B', flexWrap: 'wrap', gap: '6px' }}>
                 <span>Found in: <strong>Personal &gt; AI Research &gt; Claude 3.7 Sonnet</strong></span>
                 <span style={{ color: '#2080FF', fontWeight: 600 }}>instant match</span>
               </div>
@@ -718,6 +718,14 @@ export default function Features() {
         @media (max-width: 960px) {
           .bento-col-8, .bento-col-4 {
             grid-column: span 12 !important;
+          }
+          .bento-container {
+            gap: 16px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .bento-card {
+            padding: 22px 18px !important;
           }
         }
       `}</style>

@@ -25,18 +25,19 @@ export default function TrustBar() {
       }}
     >
       <div
-        className="container"
+        className="container trustbar-container"
         style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-around',
+          justifyContent: 'center',
           flexWrap: 'wrap',
-          gap: '20px',
+          gap: '16px 28px',
         }}
       >
         {trustItems.map((item, index) => (
           <div
             key={index}
+            className="trustbar-item"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -51,6 +52,17 @@ export default function TrustBar() {
           </div>
         ))}
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .trustbar-container {
+            gap: 12px 18px !important;
+          }
+          .trustbar-item {
+            font-size: 12.5px !important;
+          }
+        }
+      `}</style>
     </motion.div>
   );
 }

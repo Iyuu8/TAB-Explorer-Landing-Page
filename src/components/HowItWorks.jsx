@@ -68,7 +68,7 @@ export default function HowItWorks() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '24px',
           }}
         >
@@ -79,10 +79,9 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.6, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="bento-card"
+              className="bento-card step-card"
               style={{
                 position: 'relative',
-                padding: '36px 30px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -174,6 +173,17 @@ export default function HowItWorks() {
           ))}
         </div>
       </div>
+
+      <style>{`
+        .step-card {
+          padding: 36px 30px;
+        }
+        @media (max-width: 640px) {
+          .step-card {
+            padding: 24px 20px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

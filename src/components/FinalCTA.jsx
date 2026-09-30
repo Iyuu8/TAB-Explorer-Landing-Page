@@ -51,12 +51,11 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="final-cta-logo-box"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '120px',
-            height: '120px',
             borderRadius: '28px',
             backgroundColor: '#FFFFFF',
             border: '1px solid rgba(0, 65, 101, 0.12)',
@@ -67,9 +66,8 @@ export default function FinalCTA() {
           <img
             src="/assets/logo.png"
             alt="TAB Explorer Logo"
+            className="final-cta-logo-img"
             style={{
-              width: '92px',
-              height: '92px',
               objectFit: 'contain',
             }}
             onError={(e) => { e.currentTarget.src = './assets/logo.png'; }}
@@ -82,7 +80,7 @@ export default function FinalCTA() {
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.7, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(34px, 5vw, 48px)',
+            fontSize: 'clamp(28px, 5.5vw, 48px)',
             fontWeight: 800,
             letterSpacing: '-1.2px',
             color: 'var(--color-ink)',
@@ -100,9 +98,8 @@ export default function FinalCTA() {
           viewport={{ once: true, margin: '-40px' }}
           transition={{ duration: 0.7, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: '18px',
+            fontSize: 'clamp(15.5px, 2vw, 18px)',
             color: 'var(--color-text-secondary)',
-            marginBottom: '40px',
             lineHeight: 1.55,
             maxWidth: '620px',
             margin: '0 auto 40px',
@@ -133,9 +130,9 @@ export default function FinalCTA() {
             className="btn-hero-cta"
             title="Add TAB Explorer to Chrome"
           >
-            <ChromeLogo size={26} />
+            <ChromeLogo size={24} />
             <span>Add to Chrome — It’s Free</span>
-            <ArrowRight size={20} strokeWidth={2.4} />
+            <ArrowRight size={19} strokeWidth={2.4} />
           </a>
 
           <a
@@ -143,7 +140,7 @@ export default function FinalCTA() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-ghost"
-            style={{ padding: '17px 28px' }}
+            style={{ padding: '16px 28px' }}
           >
             <GithubIcon size={18} />
             <span>View on GitHub</span>
@@ -155,11 +152,35 @@ export default function FinalCTA() {
             marginTop: '32px',
             fontSize: '13px',
             color: 'var(--color-text-muted)',
+            padding: '0 10px',
           }}
         >
           Compatible with Google Chrome, Brave, Arc, Edge, and any Chromium browser.
         </div>
       </div>
+
+      <style>{`
+        .final-cta-logo-box {
+          width: 120px;
+          height: 120px;
+        }
+        .final-cta-logo-img {
+          width: 92px;
+          height: 92px;
+        }
+        @media (max-width: 640px) {
+          .final-cta-logo-box {
+            width: 88px;
+            height: 88px;
+            border-radius: 20px;
+            margin-bottom: 24px !important;
+          }
+          .final-cta-logo-img {
+            width: 66px;
+            height: 66px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

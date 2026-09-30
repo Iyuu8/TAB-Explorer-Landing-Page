@@ -50,11 +50,11 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(38px, 5.8vw, 66px)',
+            fontSize: 'clamp(30px, 6.2vw, 64px)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
-            lineHeight: 1.06,
-            letterSpacing: '-1.8px',
+            lineHeight: 1.08,
+            letterSpacing: '-1.4px',
             maxWidth: '920px',
             margin: '0 auto 20px',
             color: 'var(--color-ink)',
@@ -69,7 +69,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.75, delay: 0.16, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(16px, 2vw, 19px)',
+            fontSize: 'clamp(15.5px, 2vw, 19px)',
             lineHeight: 1.55,
             color: 'var(--color-text-secondary)',
             maxWidth: '680px',
@@ -99,7 +99,7 @@ export default function Hero() {
             title="Add TAB Explorer to Chrome for free"
             id="hero-add-to-chrome-btn"
           >
-            <ChromeLogo size={26} />
+            <ChromeLogo size={24} />
             <span>Add to Chrome — It’s Free</span>
             <ArrowRight size={19} strokeWidth={2.4} />
           </a>
@@ -130,11 +130,12 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.38 }}
+          className="hero-trust-row"
           style={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '20px',
+            gap: '16px',
             flexWrap: 'wrap',
             fontSize: '13.5px',
             color: 'var(--color-text-secondary)',
@@ -145,12 +146,12 @@ export default function Hero() {
             <ChromeLogo size={16} />
             <strong style={{ color: 'var(--color-ink)', fontWeight: 600 }}>Chrome Web Store</strong>
           </span>
-          <span style={{ color: 'var(--color-border)' }}>•</span>
+          <span className="hero-trust-dot" style={{ color: 'var(--color-border)' }}>•</span>
           <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <ShieldCheck size={16} color="#2080FF" />
             <span>100% Local-First Storage</span>
           </span>
-          <span style={{ color: 'var(--color-border)' }}>•</span>
+          <span className="hero-trust-dot" style={{ color: 'var(--color-border)' }}>•</span>
           <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
             <CheckCircle2 size={16} color="#10B981" />
             <span>No Account Required</span>
@@ -174,7 +175,7 @@ export default function Hero() {
         >
           <h2
             style={{
-              fontSize: '36px',
+              fontSize: 'clamp(28px, 4.5vw, 36px)',
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
               color: '#0F172A',
@@ -187,7 +188,7 @@ export default function Hero() {
           </h2>
           <p
             style={{
-              fontSize: '15px',
+              fontSize: '14.5px',
               color: '#5B6B79',
               lineHeight: 1.6,
               margin: 0,
@@ -205,6 +206,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 40, filter: 'blur(12px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.85, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          className="hero-browser-window"
           style={{
             maxWidth: '1120px',
             margin: '0 auto',
@@ -218,6 +220,7 @@ export default function Hero() {
         >
           {/* Chrome Browser Window Top Chrome Bar */}
           <div
+            className="hero-browser-chrome-bar"
             style={{
               backgroundColor: '#F0FAFF',
               borderBottom: '1px solid #D2E7F5',
@@ -225,11 +228,11 @@ export default function Hero() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              gap: '16px',
+              gap: '12px',
             }}
           >
             {/* Window Controls */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
               <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#FF5F56', display: 'inline-block' }} />
               <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#FFBD2E', display: 'inline-block' }} />
               <span style={{ width: '11px', height: '11px', borderRadius: '50%', backgroundColor: '#27C93F', display: 'inline-block' }} />
@@ -237,6 +240,7 @@ export default function Hero() {
 
             {/* Fake Chrome Address / Omni Bar */}
             <div
+              className="hero-browser-omnibar"
               style={{
                 flex: 1,
                 maxWidth: '540px',
@@ -250,15 +254,18 @@ export default function Hero() {
                 fontSize: '12px',
                 color: '#5B6B79',
                 gap: '8px',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
               }}
             >
-              <Lock size={12} color="#10B981" />
+              <Lock size={12} color="#10B981" style={{ flexShrink: 0 }} />
               <span style={{ fontWeight: 500, color: '#111827' }}>chrome-extension://</span>
-              <span style={{ color: '#004165' }}>tab-explorer/sidepanel.html</span>
+              <span style={{ color: '#004165', textOverflow: 'ellipsis', overflow: 'hidden' }}>tab-explorer/sidepanel.html</span>
             </div>
 
             {/* View Mode Toggle: Interactive vs Store Screenshot */}
             <div
+              className="hero-viewmode-toggle"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -267,10 +274,12 @@ export default function Hero() {
                 borderRadius: '100px',
                 padding: '2px',
                 gap: '2px',
+                flexShrink: 0,
               }}
             >
               <button
                 onClick={() => setViewMode('interactive')}
+                className="hero-viewmode-btn"
                 style={{
                   padding: '4px 12px',
                   borderRadius: '100px',
@@ -284,6 +293,7 @@ export default function Hero() {
                   gap: '5px',
                   transition: 'all 0.15s ease',
                   border: 'none',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <Sparkles size={12} />
@@ -291,6 +301,7 @@ export default function Hero() {
               </button>
               <button
                 onClick={() => setViewMode('screenshot')}
+                className="hero-viewmode-btn"
                 style={{
                   padding: '4px 12px',
                   borderRadius: '100px',
@@ -304,6 +315,7 @@ export default function Hero() {
                   gap: '5px',
                   transition: 'all 0.15s ease',
                   border: 'none',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <Eye size={12} />
@@ -471,6 +483,28 @@ export default function Hero() {
           }
           .hero-browser-left {
             display: none !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .hero-browser-omnibar {
+            display: none !important;
+          }
+          .hero-browser-chrome-bar {
+            padding: 8px 12px !important;
+          }
+          .hero-trust-dot {
+            display: none !important;
+          }
+          .hero-trust-row {
+            gap: 10px 16px !important;
+          }
+        }
+        @media (max-width: 440px) {
+          .hero-viewmode-btn span {
+            font-size: 10.5px;
+          }
+          .hero-viewmode-btn {
+            padding: 3px 8px !important;
           }
         }
       `}</style>

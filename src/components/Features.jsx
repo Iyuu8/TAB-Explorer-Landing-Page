@@ -39,9 +39,10 @@ export default function Features() {
         >
           <h2
             style={{
-              fontSize: 'clamp(32px, 4.5vw, 44px)',
+              fontSize: 'clamp(28px, 4.5vw, 44px)',
               fontWeight: 800,
-              letterSpacing: '-1px',
+              lineHeight: 1.25,
+              letterSpacing: '-0.8px',
               color: 'var(--color-ink)',
               marginBottom: '16px',
             }}

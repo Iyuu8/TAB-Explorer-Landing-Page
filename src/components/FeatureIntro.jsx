@@ -19,10 +19,10 @@ export default function FeatureIntro() {
           transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="headline-gradient"
           style={{
-            fontSize: 'clamp(36px, 6vw, 76px)',
+            fontSize: 'clamp(32px, 5.8vw, 72px)',
             fontWeight: 800,
-            lineHeight: 1.05,
-            letterSpacing: '-2px',
+            lineHeight: 1.24,
+            letterSpacing: '-1px',
             marginBottom: '24px',
             fontFamily: 'var(--font-display)',
           }}

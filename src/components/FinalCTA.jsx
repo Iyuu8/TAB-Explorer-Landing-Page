@@ -82,10 +82,10 @@ export default function FinalCTA() {
           style={{
             fontSize: 'clamp(28px, 5.5vw, 48px)',
             fontWeight: 800,
-            letterSpacing: '-1.2px',
+            letterSpacing: '-0.8px',
             color: 'var(--color-ink)',
             marginBottom: '18px',
-            lineHeight: 1.15,
+            lineHeight: 1.25,
             fontFamily: 'var(--font-display)',
           }}
         >

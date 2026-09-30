@@ -53,8 +53,8 @@ export default function Hero() {
             fontSize: 'clamp(30px, 6.2vw, 64px)',
             fontFamily: 'var(--font-display)',
             fontWeight: 800,
-            lineHeight: 1.08,
-            letterSpacing: '-1.4px',
+            lineHeight: 1.22,
+            letterSpacing: '-1px',
             maxWidth: '920px',
             margin: '0 auto 20px',
             color: 'var(--color-ink)',
@@ -181,7 +181,7 @@ export default function Hero() {
               color: '#0F172A',
               letterSpacing: '-0.8px',
               marginBottom: '10px',
-              lineHeight: 1.2,
+              lineHeight: 1.28,
             }}
           >
             Interactive Demo

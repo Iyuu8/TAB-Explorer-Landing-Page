@@ -1,13 +1,452 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* ==========================================================================
+   TAB Explorer Landing Page — Design System
+   Based on DESIGN (1).md & extracted from my-first-extension tokens
+   Refined Niche Typography (Sora + Instrument Sans) & Modern Editorial Surfaces
+   ========================================================================== */
+
+:root {
+  /* Real colors extracted from my-first-extension code */
+  --color-brand: #2080FF;
+  --gradient-brand: linear-gradient(135deg, #2080FF 0%, #004165 100%);
+  --color-action: #2080FF;
+  --color-action-hover: #0b68e3;
+  --color-action-glow: rgba(32, 128, 255, 0.35);
+
+  --color-canvas: #FFFFFF;
+  --color-canvas-alt: #F4FAFD;
+  --color-mist: #EAF4FA;
+  --color-line-blue: #7EBCE6;
+  --color-button-blue: #86BBD8;
+  --color-deep-blue: #004165;
+  --color-icon-blue: #53A4DA;
+  --color-hover-bg: #D6ECFA;
+  --color-nested-tint: #C9E4F6;
+  --color-border: rgba(0, 65, 101, 0.12);
+  --color-border-subtle: rgba(0, 65, 101, 0.06);
+
+  --color-ink: #0F172A;
+  --color-text-secondary: #475569;
+  --color-text-muted: #8F9AA0;
+  --color-dark-surface: #004165;
+
+  /* Category accents — extension's FOLDER_PALETTE */
+  --color-cat-1: #2B2B2B;
+  --color-cat-2: #1f3a63;
+  --color-cat-3: #2f6b3a;
+  --color-cat-4: #7a3b2e;
+  --color-cat-5: #5a3b7a;
+  --color-cat-6: #2e6b6b;
+
+  /* Niche Typography */
+  --font-display: 'Sora', sans-serif;
+  --font-sans: 'Instrument Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  --text-caption: 14px;
+  --leading-caption: 20px;
+  --tracking-caption: -0.2px;
+
+  --text-body: 16px;
+  --leading-body: 26px;
+
+  --text-subheading: 18px;
+  --leading-subheading: 26px;
+
+  --text-heading-sm: 22px;
+  --leading-heading-sm: 28px;
+
+  --text-heading: 38px;
+  --leading-heading: 44px;
+  --tracking-heading: -0.8px;
+
+  --text-heading-lg: 54px;
+  --leading-heading-lg: 58px;
+  --tracking-heading-lg: -1.4px;
+
+  --text-display: 76px;
+  --leading-display: 80px;
+  --tracking-display: -2px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Spacing */
+  --page-max-width: 1200px;
+  --section-gap-min: 72px;
+  --section-gap-max: 110px;
+  --card-padding: 30px;
+  --element-gap: 20px;
+
+  /* Radius — STRICT pill system for all buttons & badges */
+  --radius-min: 8px;
+  --radius-card: 18px;
+  --radius-image: 18px;
+  --radius-container: 24px;
+  --radius-full: 100px;
+
+  /* Elevation — Refined multi-layered ambient elevations */
+  --shadow-subtle: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-ambient: 0 2px 8px -1px rgba(0, 65, 101, 0.04), 0 12px 28px -4px rgba(0, 65, 101, 0.07);
+  --shadow-ambient-lift: 0 4px 12px -2px rgba(0, 65, 101, 0.06), 0 20px 40px -8px rgba(0, 65, 101, 0.12);
+  --shadow-cta-glow: 0 8px 30px rgba(32, 128, 255, 0.38);
+  --shadow-cta-hover: 0 12px 38px rgba(32, 128, 255, 0.52);
+
+  /* Surfaces */
+  --surface-canvas: var(--color-canvas);
+  --surface-alternate: var(--color-canvas-alt);
+  --surface-card: var(--color-canvas);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--surface-canvas);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: var(--leading-body);
+  overflow-x: hidden;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+}
+
+p {
+  color: var(--color-text-secondary);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--page-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Section styling with rhythmic background shifts */
+.section {
+  padding-top: var(--section-gap-max);
+  padding-bottom: var(--section-gap-max);
+  position: relative;
+}
+
+.section-canvas {
+  background-color: var(--surface-canvas);
+}
+
+.section-alt {
+  background-color: var(--surface-alternate);
+}
+
+/* The signature gradient headline */
+.headline-gradient {
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Buttons — Solid, Clean, Zero-Glow Premium Aesthetic */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--color-action);
+  color: #FFFFFF;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-semibold);
+  font-size: 15px;
+  padding: 11px 24px;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 1px 3px rgba(0, 65, 101, 0.12), 0 1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-action-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 65, 101, 0.16);
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Special High-Prominence Hero CTA Button (Big, Bold, Clean & Solid — NO GLOW) */
+.btn-hero-cta {
+  font-size: 18px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  padding: 16px 38px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-action);
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 65, 101, 0.14);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  letter-spacing: -0.2px;
+  text-decoration: none;
+}
+
+.btn-hero-cta:hover {
+  transform: translateY(-1.5px);
+  background-color: #0b68e3;
+  box-shadow: 0 4px 16px rgba(0, 65, 101, 0.2);
+  color: #FFFFFF;
+}
+
+.btn-hero-cta:active {
+  transform: translateY(0);
+}
+
+/* Extension authentic folder count badge: wide, not tall */
+.folder-count-badge {
+  min-width: 24px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 5, 75, 0.52);
+  border-radius: 6px;
+  background: transparent;
+  font-size: 9px;
+  line-height: 1;
+  padding: 0 7px;
+  color: #00054B;
+  flex-shrink: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-weight: 600;
+}
+
+/* Hidden scrollbar container for extension tree */
+.tree-scroll-container {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.tree-scroll-container::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* Interactive Demo Rows matching Chrome Extension */
+.demo-row {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 14px 3px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  user-select: none;
+  color: #3A3A3A;
+  transition: background-color 0.1s ease, color 0.1s ease;
+  position: relative;
+}
+
+.demo-row:hover {
+  background-color: #D6ECFA;
+  color: #0F172A;
+}
+
+.demo-row-selected {
+  background-color: #2080FF !important;
+  color: #FFFFFF !important;
+}
+
+.demo-row-selected span,
+.demo-row-selected svg,
+.demo-row-selected button {
+  color: #FFFFFF !important;
+}
+
+.demo-row-selected .folder-count-badge {
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  color: #FFFFFF !important;
+}
+
+.demo-row-delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  flex-shrink: 0;
+}
+
+.demo-row:hover .demo-row-delete-btn,
+.demo-row-selected .demo-row-delete-btn {
+  opacity: 0.85;
+}
+
+.demo-row-delete-btn:hover {
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.demo-row-selected .demo-row-delete-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.demo-star-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  flex-shrink: 0;
+  color: #00054B;
+  transition: transform 0.1s ease;
+}
+
+.demo-star-btn:hover {
+  transform: scale(1.15);
+}
+
+.demo-star-btn-active {
+  color: #00054B;
+}
+
+.demo-row-selected .demo-star-btn {
+  color: #FFFFFF !important;
+}
+
+/* Ghost Pill Button */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #FFFFFF;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-medium);
+  font-size: 15.5px;
+  padding: 16px 32px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--shadow-subtle);
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-line-blue);
+  background-color: var(--color-mist);
+  color: var(--color-deep-blue);
+  transform: translateY(-1px);
+}
+
+/* Refined Bento & Card Surfaces (No vibe-coded template look) */
+.bento-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-card);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-ambient);
+  border: 1px solid var(--color-border);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-ambient-lift);
+  border-color: rgba(32, 128, 255, 0.3);
+}
+
+/* Accessibility Focus Ring */
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  :root {
+    --section-gap-max: 60px;
+    --section-gap-min: 44px;
+    --card-padding: 22px;
+  }
+
+  .btn-hero-cta {
+    font-size: 17px;
+    padding: 16px 30px;
+    width: 100%;
+  }
+
+  .hero-cta-wrapper {
+    width: 100%;
+  }
+
+  .btn-ghost {
+    width: 100%;
+    padding: 14px 28px;
+  }
+}
+

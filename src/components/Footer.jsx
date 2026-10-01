@@ -53,6 +53,8 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               style={{ color: 'var(--color-brand)', fontWeight: 600 }}
+              data-umami-event="install-click"
+              data-umami-event-location="footer"
             >
               Chrome Web Store
             </a>

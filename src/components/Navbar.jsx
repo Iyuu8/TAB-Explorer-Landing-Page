@@ -136,6 +136,8 @@ export default function Navbar() {
               rel="noopener noreferrer"
               className="btn-primary nav-header-cta"
               title="Install TAB Explorer on Chrome Web Store"
+              data-umami-event="install-click"
+              data-umami-event-location="navbar"
             >
               <ChromeLogo size={18} />
               <span className="nav-cta-text">Add to Chrome</span>
@@ -199,6 +201,8 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="btn-primary mobile-drawer-cta"
                     title="Install TAB Explorer on Chrome Web Store"
+                    data-umami-event="install-click"
+                    data-umami-event-location="mobile-drawer"
                   >
                     <ChromeLogo size={20} />
                     <span>Add to Chrome — It’s Free</span>

@@ -98,6 +98,8 @@ export default function Hero() {
             className="btn-hero-cta"
             title="Add TAB Explorer to Chrome for free"
             id="hero-add-to-chrome-btn"
+            data-umami-event="install-click"
+            data-umami-event-location="hero"
           >
             <ChromeLogo size={24} />
             <span>Add to Chrome — It’s Free</span>

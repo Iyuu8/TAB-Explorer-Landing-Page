@@ -129,6 +129,8 @@ export default function FinalCTA() {
             rel="noopener noreferrer"
             className="btn-hero-cta"
             title="Add TAB Explorer to Chrome"
+            data-umami-event="install-click"
+            data-umami-event-location="final-cta"
           >
             <ChromeLogo size={24} />
             <span>Add to Chrome — It’s Free</span>

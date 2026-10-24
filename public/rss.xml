@@ -5,7 +5,14 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 24 Oct 2026 12:56:46 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 24 Oct 2026 13:21:14 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[Everything Tab Explorer 1.01 Can Do: The Complete Feature Guide]]></title>
+    <link>https://tabexplorer.site/blog/tab-explorer-features-guide</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/tab-explorer-features-guide</guid>
+    <pubDate>Sat, 24 Oct 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[A complete walkthrough of every feature in Tab Explorer 1.01, from side-panel folder trees and tab batching to local file links and 50-step undo.]]></description>
+  </item>
 </channel>
 </rss>

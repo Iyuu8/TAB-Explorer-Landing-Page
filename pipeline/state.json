@@ -1,0 +1,917 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-10-24T13:21:14.573Z",
+  "activeDraft": null,
+  "topics": [
+    {
+      "title": "Scholarship and University Applications: Track Every Program in Your Browser",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize university applications",
+      "secondaryKeywords": [
+        "scholarship application tracker",
+        "track scholarship deadlines",
+        "application portals organize",
+        "master's application organization",
+        "study abroad application checklist",
+        "organize college applications online"
+      ],
+      "angle": "One folder per program holding the portal, requirements page, recommendation links and funding page. Keep deadlines in a calendar or sheet, and say so. Timely each autumn.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Best Tab Managers for Students: Study Tab Savers on the Chrome Web Store",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "best tab manager for students",
+      "secondaryKeywords": [
+        "study tab saver chrome",
+        "save study links extension",
+        "chrome extension for studying",
+        "tab manager for studying",
+        "homework tabs organize",
+        "student workspace extension"
+      ],
+      "angle": "Compare general managers with small student-focused savers, and show which approach suits a semester with many subjects.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Online Course Learners (Coursera, Udemy, edX): Keep Every Course in One Folder",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize online courses",
+      "secondaryKeywords": [
+        "coursera udemy workflow",
+        "mooc study setup",
+        "online learning organization",
+        "course links folder",
+        "self paced learning organize",
+        "track online courses"
+      ],
+      "angle": "Targets adult and self-paced learners rather than enrolled students. One folder per course holding the player, notes, exercises and community links.",
+      "confirmFirst": false
+    },
+    {
+      "title": "The Morning Launch Folder: Open Your Daily Sites in One Click",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "open multiple websites at once chrome",
+      "secondaryKeywords": [
+        "chrome startup pages multiple",
+        "morning routine browser",
+        "daily websites one click",
+        "open favorite sites at once",
+        "chrome open specific pages on startup",
+        "start work routine browser"
+      ],
+      "angle": "Show native startup pages first, then a folder that opens a chosen set on demand. Works for any profession.",
+      "confirmFirst": false
+    },
+    {
+      "title": "AI Power Users: Keep ChatGPT, Claude and Gemini Sessions Organized Per Project",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize ai chats by project",
+      "secondaryKeywords": [
+        "organize chatgpt conversations",
+        "chatgpt folders alternative",
+        "save ai chat links",
+        "llm sessions workflow",
+        "claude conversations organize",
+        "ai research workflow"
+      ],
+      "angle": "For professionals rather than students. One folder per project that holds the relevant AI conversations alongside docs and references. Be neutral about which AI tool people use.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tab Manager Plus Alternative: When You Need Folders, Not Just a Tab Grid",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab manager plus alternative",
+      "secondaryKeywords": [
+        "tab manager plus review",
+        "tab manager plus vs",
+        "visual tab manager chrome",
+        "tab manager with folders",
+        "search open tabs extension",
+        "free open source tab manager"
+      ],
+      "angle": "Tab Manager Plus is a strong free overview of everything currently open. Explain honestly that it manages live tabs, while TAB Explorer is for structure you keep over time. Present them as complementary where that's true.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tab Wrangler Alternative: Auto-Closing Tabs vs Organizing Them on Purpose",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab wrangler alternative",
+      "secondaryKeywords": [
+        "auto close inactive tabs chrome",
+        "close tabs automatically chrome",
+        "tab wrangler vs",
+        "tab cleanup extension",
+        "stop tabs piling up",
+        "tab corral alternative"
+      ],
+      "angle": "Auto-closing treats tabs as disposable. Contrast it with filing the pages you need into folders so nothing worth keeping is closed by a timer.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tab Session Manager Alternative: Save Sessions vs Build a Permanent Workspace",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab session manager alternative",
+      "secondaryKeywords": [
+        "tab session manager chrome",
+        "session manager extension",
+        "save and restore browser sessions",
+        "session buddy vs tab session manager",
+        "open source session manager",
+        "restore tabs after crash extension"
+      ],
+      "angle": "A session is a snapshot of one moment. A workspace is something you curate. Explain which problem each solves.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Toby vs Workona vs TAB Explorer: Which Collection-Style Manager Fits You?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "toby vs workona",
+      "secondaryKeywords": [
+        "toby tab manager review",
+        "workona vs toby free",
+        "collections tab manager",
+        "toby alternative free",
+        "spaces and collections tabs",
+        "team tab manager"
+      ],
+      "angle": "A three-way comparison table plus a \"choose X if...\" section. Credit Toby and Workona for team and cloud features, and position TAB Explorer for solo, simple use. ⚠ Confirm first: price, local storage and account requirements.",
+      "confirmFirst": true
+    },
+    {
+      "title": "SideArc, Leap Tabs and Tab Shelf: Side-Panel Tab Managers Compared",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "side panel tab manager",
+      "secondaryKeywords": [
+        "sidearc alternative",
+        "leap tabs alternative",
+        "tab shelf alternative",
+        "best side panel extensions chrome",
+        "arc style sidebar extension",
+        "vertical tab manager chrome"
+      ],
+      "angle": "These are your closest competitors, so treat them with precision. Build a feature matrix and state clearly where TAB Explorer differs (folder hierarchy, one-click folder launch).",
+      "confirmFirst": false
+    },
+    {
+      "title": "Best Vertical Tabs Extensions for Chrome (and Whether You Still Need One After Chrome 146)",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "best vertical tabs extension chrome",
+      "secondaryKeywords": [
+        "chrome 146 vertical tabs",
+        "native vertical tabs vs extension",
+        "vertical tabs sidebar chrome",
+        "vertical tabs vs side panel",
+        "how to enable vertical tabs chrome",
+        "edge style vertical tabs chrome"
+      ],
+      "angle": "Native vertical tabs shipped in 2026, so a plain \"best extensions\" list is outdated. Explain what native layout covers, then what it doesn't (saved structure, folders, launching a whole set).",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tabs Outliner Alternative: A Simpler Tree for Your Tabs",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tabs outliner alternative",
+      "secondaryKeywords": [
+        "tree style tabs chrome",
+        "tabs outliner review",
+        "tab tree extension",
+        "hierarchical tab manager",
+        "outliner for browser tabs",
+        "tabs outliner simpler"
+      ],
+      "angle": "For people who want hierarchy but find an outliner heavy. Show the Workspaces > Folders > Links model side by side with a tree view.",
+      "confirmFirst": false
+    },
+    {
+      "title": "BrainTool Alternative: Topic Hierarchies Without the Learning Curve",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "braintool alternative",
+      "secondaryKeywords": [
+        "braintool chrome extension",
+        "topic based tab manager",
+        "hierarchical bookmark manager",
+        "tab and bookmark manager",
+        "organize tabs by topic",
+        "browser topic outline"
+      ],
+      "angle": "Speak to users who like organizing by topic. Be fair about what BrainTool does well (notes, keyboard control) and where TAB Explorer is simpler.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tab Suspender vs Tab Manager: Freeing Memory or Getting Organized?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab suspender vs tab manager",
+      "secondaryKeywords": [
+        "tab suspender pro alternative",
+        "great suspender alternative",
+        "suspend tabs chrome",
+        "discard tabs chrome",
+        "chrome memory saver",
+        "reduce chrome memory"
+      ],
+      "angle": "Explain that suspenders and managers solve different problems, and where Chrome's built-in Memory Saver already covers the memory side. Only claim memory benefits you have tested.",
+      "confirmFirst": false
+    },
+    {
+      "title": "How to Check If a Chrome Extension Is Safe Before You Install It",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "are chrome extensions safe",
+      "secondaryKeywords": [
+        "how to check chrome extension permissions",
+        "chrome extension safety checklist",
+        "is this chrome extension safe",
+        "chrome safety check extensions",
+        "chrome extension red flags",
+        "chrome extension privacy practices"
+      ],
+      "angle": "A genuinely useful checklist (developer, permissions, last update, reviews, source). Safety is a trust-builder, so close by showing how to apply the checklist to any tab manager, including yours.",
+      "confirmFirst": false
+    },
+    {
+      "title": "What Permissions Does a Tab Manager Really Need?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab manager permissions",
+      "secondaryKeywords": [
+        "chrome extension tabs permission",
+        "why does an extension need access to all sites",
+        "chrome extension host permissions",
+        "minimal permissions extension",
+        "chrome extension storage permission",
+        "side panel permission"
+      ],
+      "angle": "Explain each permission in plain language and which a tab manager legitimately needs. ⚠ Confirm first: list TAB Explorer's actual permissions from its manifest and justify each one.",
+      "confirmFirst": true
+    },
+    {
+      "title": "Chrome Side Panel Extensions: A Complete Guide (Side Panel vs Popup)",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "chrome side panel extensions",
+      "secondaryKeywords": [
+        "how to open side panel chrome",
+        "chrome side panel vs popup",
+        "best chrome side panel extensions",
+        "move side panel to left chrome",
+        "chrome side panel api",
+        "side panel shortcuts"
+      ],
+      "angle": "Explain what the side panel is, how extensions use it, and why a persistent panel suits tab managers better than a popup that closes on every click. Mention the limits too (fixed width, one panel at a time).",
+      "confirmFirst": false
+    },
+    {
+      "title": "Local-First Chrome Extensions: Why Your Data Should Stay in Your Browser",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "local first chrome extension",
+      "secondaryKeywords": [
+        "chrome extension no cloud",
+        "chrome extension local storage",
+        "privacy friendly chrome extensions",
+        "extensions that dont track you",
+        "offline chrome extensions",
+        "local first software"
+      ],
+      "angle": "Explain trade-offs (privacy and speed against cross-device sync) without bashing cloud tools. ⚠ Confirm first: only publish if TAB Explorer's data is actually stored locally, and say so plainly if sync is planned.",
+      "confirmFirst": true
+    },
+    {
+      "title": "How to Install, Pin and Manage Chrome Extensions (Beginner Guide)",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "how to install chrome extension",
+      "secondaryKeywords": [
+        "how to pin extensions chrome",
+        "how to manage chrome extensions",
+        "how to disable chrome extension",
+        "chrome extensions menu puzzle icon",
+        "how to remove chrome extension",
+        "chrome web store how to use"
+      ],
+      "angle": "A broad how-to for newcomers. Use TAB Explorer as the worked install example and end with a pointer to the side panel guide.",
+      "confirmFirst": false
+    },
+    {
+      "title": "How Many Chrome Extensions Is Too Many? How to Audit Your Extensions",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "too many chrome extensions",
+      "secondaryKeywords": [
+        "do chrome extensions slow down chrome",
+        "how to audit chrome extensions",
+        "remove unused chrome extensions",
+        "chrome extensions memory usage",
+        "minimal chrome extension setup",
+        "chrome task manager extensions"
+      ],
+      "angle": "A practical audit routine using Chrome's own tools. Recommend keeping few extensions and choosing ones that replace several jobs.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Can You Use Chrome Extensions in Edge, Brave and Opera?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "use chrome extensions in edge",
+      "secondaryKeywords": [
+        "chrome extensions in brave",
+        "install chrome web store extension in edge",
+        "chromium browsers extensions",
+        "opera chrome extensions",
+        "tab manager for edge",
+        "side panel extensions edge"
+      ],
+      "angle": "Explain Chromium compatibility simply. ⚠ Confirm first: test TAB Explorer in Edge, Brave and Opera, since side panel behavior may differ, and only list the ones that work.",
+      "confirmFirst": true
+    },
+    {
+      "title": "The Best Tab Manager for Every Use Case: A Decision Guide",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "which tab manager should i use",
+      "secondaryKeywords": [
+        "best tab manager by use case",
+        "tab manager comparison chart",
+        "workspace vs session manager vs suspender",
+        "types of tab managers",
+        "tab manager feature comparison",
+        "choose a tab manager"
+      ],
+      "angle": "Split tab managers into four jobs (see live tabs, save sessions, suspend memory, curate workspaces) and recommend per job. Include your own tool only for the job it actually fits.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Tab Manager vs Bookmark Manager vs Read-Later App: Which Do You Need?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab manager vs bookmark manager",
+      "secondaryKeywords": [
+        "raindrop io alternative",
+        "read it later vs bookmarks",
+        "bookmark manager for chrome",
+        "pocket alternative",
+        "save links for later",
+        "bookmarks vs tab groups"
+      ],
+      "angle": "Clarify three different jobs (active work, long-term reference, reading backlog) and show where a folder-based tab workspace sits between them.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Best Free Tab Managers With No Paywall (and What \"Free\" Really Means)",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "best free tab manager chrome",
+      "secondaryKeywords": [
+        "free tab manager no limits",
+        "tab manager freemium",
+        "workona free plan limits",
+        "tab manager one time payment",
+        "free tab manager no ads",
+        "free workspace manager chrome"
+      ],
+      "angle": "Many \"free\" tools are freemium with a ceiling. Compare limits honestly. ⚠ Confirm first: TAB Explorer's actual price and whether any limits exist, since your sync plans may add a paid tier later.",
+      "confirmFirst": true
+    },
+    {
+      "title": "Tab Managers Compared by Privacy: What Each Extension Can See",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "tab manager privacy comparison",
+      "secondaryKeywords": [
+        "are tab managers safe",
+        "tab manager data collection",
+        "chrome web store privacy practices",
+        "local vs cloud tab manager",
+        "tab manager permissions explained",
+        "private tab manager"
+      ],
+      "angle": "Teach readers to read a listing's privacy practices and permissions, then compare real extensions. Only claim \"local\" for extensions you've verified.",
+      "confirmFirst": false
+    },
+    {
+      "title": "AI Browsers vs Chrome Extensions for Tab Management: Do You Need Dia, Arc or Tabbit?",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "ai browser vs chrome extension",
+      "secondaryKeywords": [
+        "dia browser tab management",
+        "arc vs chrome",
+        "best browser for productivity 2026",
+        "do i need a new browser",
+        "tab management without switching browsers",
+        "ai browser workspaces"
+      ],
+      "angle": "Switching browsers has costs (extensions, sync, habits). Lay out when an extension is enough and when a new browser is worth it. Be honest that AI browsers offer features an extension doesn't.",
+      "confirmFirst": false
+    },
+    {
+      "title": "The Best Chrome Extensions for Productivity in 2026: A Minimal Stack",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "best chrome extensions for productivity 2026",
+      "secondaryKeywords": [
+        "best productivity chrome extensions",
+        "chrome extensions for focus",
+        "must have chrome extensions",
+        "chrome extensions for work",
+        "essential chrome extensions",
+        "chrome extensions for organization"
+      ],
+      "angle": "Recommend a small stack across categories (tabs, notes, passwords, focus) and be neutral about non-tab tools. Include TAB Explorer in the organization slot only.",
+      "confirmFirst": false
+    },
+    {
+      "title": "The Best Chrome Extensions for Students in 2026",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "best chrome extensions for students",
+      "secondaryKeywords": [
+        "chrome extensions for college",
+        "chrome extensions for studying",
+        "free chrome extensions for school",
+        "student productivity extensions",
+        "chrome extensions for note taking",
+        "chrome extensions for research"
+      ],
+      "angle": "A genuine roundup across categories (organization, notes, citations, focus, writing). TAB Explorer appears once, under organization, with its one-folder-per-subject use.",
+      "confirmFirst": false
+    },
+    {
+      "title": "How I Built a Side-Panel Chrome Extension With Plasmo and React",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "plasmo chrome extension",
+      "secondaryKeywords": [
+        "plasmo react tutorial",
+        "chrome side panel extension react",
+        "build chrome extension 2026",
+        "plasmo framework",
+        "manifest v3 react extension",
+        "chrome sidepanel api example"
+      ],
+      "angle": "A technical build log with real decisions and mistakes. Good for dev.to, Hacker News and Reddit, and a source of backlinks to the landing page.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Lessons From Publishing My First Chrome Extension on the Web Store",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "publish chrome extension",
+      "secondaryKeywords": [
+        "chrome web store review process",
+        "chrome web store developer account",
+        "first chrome extension",
+        "chrome extension launch checklist",
+        "chrome web store rejected",
+        "chrome extension privacy policy"
+      ],
+      "angle": "A first-person walkthrough from submission to approval. Include real timings and review issues you hit, not generic advice.",
+      "confirmFirst": false
+    },
+    {
+      "title": "How to Get Your First 100 Users for a Chrome Extension",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "how to get users for chrome extension",
+      "secondaryKeywords": [
+        "chrome extension marketing",
+        "promote chrome extension",
+        "chrome extension growth",
+        "first 100 users",
+        "launch side project reddit",
+        "chrome extension distribution"
+      ],
+      "angle": "Write from your actual numbers and channels (landing page, Reddit, email to students) and report honestly what worked and what didn't. Honesty is what makes build-in-public posts spread.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Chrome Web Store SEO: How to Write a Listing That Ranks",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "chrome web store seo",
+      "secondaryKeywords": [
+        "chrome extension listing optimization",
+        "chrome web store description tips",
+        "chrome extension screenshots",
+        "chrome web store keywords",
+        "chrome extension title keywords",
+        "rank in chrome web store"
+      ],
+      "angle": "Practical listing advice (title, description, screenshots, category). Use TAB Explorer's own listing before and after as an example, and keep any claims to what you can observe.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Hackathon Participants: A Fast Tab Setup for Team Projects",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "hackathon workflow tools",
+      "secondaryKeywords": [
+        "hackathon tips",
+        "organize hackathon resources",
+        "hackathon project setup",
+        "devpost submission checklist",
+        "hackathon browser setup",
+        "team project links organize"
+      ],
+      "angle": "A workspace for docs, APIs, design, the Devpost page and the demo. Useful as shareable content around your own hackathon submission.",
+      "confirmFirst": false
+    },
+    {
+      "title": "SRE and DevOps: Tab Setups for Incidents, Dashboards and Runbooks",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "sre browser setup",
+      "secondaryKeywords": [
+        "incident response dashboards tabs",
+        "organize runbook links",
+        "devops browser workflow",
+        "on call browser setup",
+        "monitoring dashboards organize",
+        "open dashboards at once"
+      ],
+      "angle": "One folder per service or incident type, opened in one click when an alert fires. Keep it about organization, not about any monitoring product.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Code Review and Open Source: Organize PRs, Issues and Docs by Repo",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "code review browser setup",
+      "secondaryKeywords": [
+        "organize github pull requests tabs",
+        "open source maintainer workflow",
+        "github tabs overload",
+        "review pull requests faster",
+        "github issues links organize",
+        "repo workspace browser"
+      ],
+      "angle": "A workspace per repository holding the PR queue, issue board, CI and docs. Distinct from the general developer article by focusing on review and maintenance.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Self-Taught Programmers and Bootcamp Students: Organize Learning Resources by Roadmap",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize programming resources",
+      "secondaryKeywords": [
+        "learn to code resources organize",
+        "self taught developer workflow",
+        "bootcamp study setup",
+        "developer learning roadmap links",
+        "bookmark tutorials folders",
+        "coding course tabs"
+      ],
+      "angle": "One folder per topic on the roadmap (HTML, JavaScript, algorithms) holding tutorials, docs and practice sites.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Power Users: Keyboard-First Tab Workflows in Chrome",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "chrome power user workflow",
+      "secondaryKeywords": [
+        "chrome keyboard shortcuts tabs",
+        "chrome power user tips",
+        "chrome productivity shortcuts",
+        "tab management shortcuts",
+        "chrome side panel shortcut",
+        "fast tab switching chrome"
+      ],
+      "angle": "Cover native shortcuts first, then where a folder workspace removes mouse steps. ⚠ Confirm first: only describe TAB Explorer shortcuts that exist.",
+      "confirmFirst": true
+    },
+    {
+      "title": "Academics and PhD Students: Manage Reading Lists, Journals and Tools Across Projects",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "phd workflow organization",
+      "secondaryKeywords": [
+        "academic research tools chrome",
+        "organize journal articles browser",
+        "zotero alongside browser tabs",
+        "reading list research papers",
+        "manage research projects browser",
+        "lab resources organize"
+      ],
+      "angle": "Show how a folder workspace complements a reference manager like Zotero rather than replacing it.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Language Learners: One Folder per Language for Lessons, Dictionaries and Practice",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize language learning resources",
+      "secondaryKeywords": [
+        "language learning workflow",
+        "chrome extensions for language learners",
+        "study spanish tabs organize",
+        "language learning setup",
+        "dictionary and lesson links",
+        "daily language practice routine"
+      ],
+      "angle": "A daily-practice folder that opens the lesson app, dictionary, news site and flashcards in one click.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Teachers and Educators: Organize Lesson Resources by Class and Unit",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "teacher chrome extensions",
+      "secondaryKeywords": [
+        "organize teaching resources online",
+        "lesson planning tabs",
+        "classroom resources browser",
+        "teacher digital organization",
+        "open class resources at once",
+        "teacher workflow browser"
+      ],
+      "angle": "Workspace per term, folder per class or unit, holding slides, assignments, grade book and reference sites.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Writers and Content Creators: Organize Research, Sources and Drafts per Piece",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "writer research workflow",
+      "secondaryKeywords": [
+        "organize research for articles",
+        "content creator workflow",
+        "youtube script research tabs",
+        "blog research organization",
+        "source links organize",
+        "writing project folders"
+      ],
+      "angle": "A folder per article or video holding sources, outline, draft and publishing tools.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Product Managers: Organize Competitive Research, Specs and Dashboards per Initiative",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "product manager browser workflow",
+      "secondaryKeywords": [
+        "competitive research organize tabs",
+        "pm tools chrome extensions",
+        "organize prd research links",
+        "product research workflow",
+        "sprint tabs organize",
+        "roadmap links organize"
+      ],
+      "angle": "A workspace per initiative with competitor pages, the spec, analytics and tickets, opened in one click at the start of planning.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Marketers and SEO Professionals: One Workspace per Campaign",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "seo browser workflow",
+      "secondaryKeywords": [
+        "marketing chrome extensions",
+        "organize campaign links",
+        "seo audit tabs organize",
+        "agency client browser setup",
+        "digital marketer productivity",
+        "campaign dashboard links"
+      ],
+      "angle": "Focus on campaign structure (ad platforms, analytics, creative, reports), which differs from the freelancer-by-client angle.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Customer Support Agents: One-Click Knowledge Base and Tool Setup for Every Shift",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "customer support browser setup",
+      "secondaryKeywords": [
+        "support agent productivity",
+        "knowledge base links organize",
+        "support tools chrome",
+        "open all work tools at once",
+        "daily start up tabs",
+        "helpdesk workflow browser"
+      ],
+      "angle": "A \"start of shift\" folder that opens the helpdesk, knowledge base, internal tools and macros at once.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Designers and Creative Professionals: Organize References, Inspiration and Tools",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "designer chrome extensions",
+      "secondaryKeywords": [
+        "organize design inspiration links",
+        "ui reference organization",
+        "moodboard links browser",
+        "design project folders",
+        "figma and reference tabs",
+        "creative workflow browser"
+      ],
+      "angle": "One folder per project holding inspiration, the design file, assets and client feedback links. Be clear it's link organization, not an asset manager.",
+      "confirmFirst": false
+    },
+    {
+      "title": "Journalists and Fact-Checkers: Keep Sources, Archives and Drafts Together",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "how journalists organize research",
+      "secondaryKeywords": [
+        "fact checking workflow browser",
+        "journalist browser setup",
+        "organize sources online research",
+        "investigative research tools",
+        "story research folders",
+        "verification tools browser"
+      ],
+      "angle": "One workspace per story holding sources, archived pages, verification tools and the draft. ⚠ Confirm first: local-only storage matters for source protection, so only say so if it's true.",
+      "confirmFirst": true
+    },
+    {
+      "title": "Lawyers and Paralegals: Organize Case Research Without Losing Track of Sources",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "legal research workflow browser",
+      "secondaryKeywords": [
+        "organize case law tabs",
+        "lawyer chrome extensions",
+        "law student research organization",
+        "legal research organization",
+        "case research folders",
+        "law school study setup"
+      ],
+      "angle": "One folder per matter or course. Keep it strictly about organization and avoid anything resembling legal advice. ⚠ Confirm first: confidentiality claims need verified local storage.",
+      "confirmFirst": true
+    },
+    {
+      "title": "Why You Can't Close Tabs: The \"Black-Hole Effect\" and How to Beat It",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "why cant i close tabs",
+      "secondaryKeywords": [
+        "tab anxiety",
+        "fear of closing tabs",
+        "black hole effect tabs",
+        "tab hoarding psychology",
+        "how to close tabs without losing them",
+        "context switching cost"
+      ],
+      "angle": "Explain the fear of losing a page you may need later and how a saved, organized home removes it. Verify before quoting: a Harvard Business Review study on app toggling (around 1,200 switches a day in the cited Fortune 500 teams) and Carnegie Mellon work on the \"black-hole effect.\" Use the original papers, not secondary summaries.",
+      "confirmFirst": false
+    },
+    {
+      "title": "The Friday Tab Review: A 10-Minute Weekly Ritual for a Clean Browser",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "weekly tab cleanup routine",
+      "secondaryKeywords": [
+        "digital decluttering routine",
+        "browser cleanup checklist",
+        "weekly review productivity",
+        "tab inbox zero",
+        "clean up chrome tabs weekly",
+        "digital minimalism browser"
+      ],
+      "angle": "A simple repeatable routine: file what's worth keeping into folders, delete the rest. Shareable and easy to bookmark.",
+      "confirmFirst": false
+    },
+    {
+      "title": "House and Apartment Hunting: Organize Listings, Maps and Applications",
+      "status": "pending",
+      "fileName": null,
+      "slug": null,
+      "publishedDate": null,
+      "primaryKeyword": "organize apartment hunting",
+      "secondaryKeywords": [
+        "apartment search tabs",
+        "house hunting organize listings",
+        "compare rental listings",
+        "rental application checklist",
+        "save apartment listings chrome",
+        "moving checklist online"
+      ],
+      "angle": "A folder per neighborhood or shortlisted listing with the ad, map, commute check and application link. A relatable consumer example for the landing page and social posts.",
+      "confirmFirst": false
+    }
+  ],
+  "extraArticles": [
+    {
+      "title": "Everything Tab Explorer 1.01 Can Do: The Complete Feature Guide",
+      "status": "published",
+      "fileName": "tab-explorer-features-guide-1-01.md",
+      "slug": "tab-explorer-features-guide",
+      "publishedDate": "2026-10-24",
+      "isCustom": true
+    }
+  ]
+}

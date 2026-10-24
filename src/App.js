@@ -1,52 +1,33 @@
 import React from 'react';
+import { Routes, Route } from 'react-router';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import TrustBar from './components/TrustBar';
-import FeatureIntro from './components/FeatureIntro';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Showcase from './components/Showcase';
-import PrivacyLocalFirst from './components/PrivacyLocalFirst';
-import FAQ from './components/FAQ';
-import FinalCTA from './components/FinalCTA';
+import LandingPage from './components/LandingPage';
+import BlogList from './components/blog/BlogList';
+import BlogPost from './components/blog/BlogPost';
+import NotFound from './components/NotFound';
+import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 
 export default function App() {
   return (
     <div className="tab-explorer-app" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Sticky Navigation Bar */}
+      {/* Scroll restoration helper */}
+      <ScrollToTop />
+
+      {/* Universal Header with Main Navigation & Blog Link */}
       <Navbar />
 
+      {/* Main Routed Content */}
       <main style={{ flex: 1 }}>
-        {/* Hero Section with Prominent Add to Chrome CTA & Interactive Mockup */}
-        <Hero />
-
-        {/* Technical Trust Bar */}
-        <TrustBar />
-
-        {/* Signature Brand Gradient Display Headline */}
-        <FeatureIntro />
-
-        {/* Bento Grid Architecture with Interactive Feature Previews */}
-        <Features />
-
-        {/* How It Works 3-Step Section */}
-        <HowItWorks />
-
-        {/* Product Showcase with Store Screenshots */}
-        <Showcase />
-
-        {/* Local-First Data Autonomy Section */}
-        <PrivacyLocalFirst />
-
-        {/* Practical Answers to Real Questions */}
-        <FAQ />
-
-        {/* Final Add to Chrome CTA with enlarged logo */}
-        <FinalCTA />
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
 
-      {/* Minimalist Footer */}
+      {/* Universal Footer */}
       <Footer />
     </div>
   );

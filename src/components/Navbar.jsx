@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChromeLogo from './ChromeLogo';
 import { Menu, X, ChevronRight, ArrowRight } from 'lucide-react';
@@ -20,6 +21,8 @@ function GithubIcon({ size = 15 }) {
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const isBlogPage = location.pathname.startsWith('/blog');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,6 +62,7 @@ export default function Navbar() {
     { href: '#showcase', label: 'Interface' },
     { href: '#privacy', label: 'Local-First' },
     { href: '#faq', label: 'FAQ' },
+    { href: '/blog', label: 'Blog', isRoute: true },
   ];
 
   return (
@@ -90,8 +94,8 @@ export default function Navbar() {
           }}
         >
           {/* Brand Logo & Two-Tone Wordmark */}
-          <a
-            href="/"
+          <Link
+            to="/"
             aria-label="TAB Explorer Home"
             className="brand-link"
           >
@@ -107,15 +111,35 @@ export default function Navbar() {
               <span style={{ color: 'var(--color-brand)' }}>TAB</span>{' '}
               <span style={{ color: 'var(--color-ink)' }}>Explorer</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Nav Links */}
           <nav className="desktop-nav" style={{ margin: '0 auto' }}>
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="nav-link">
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              if (link.isRoute) {
+                const isActive = location.pathname === link.href || (link.href === '/blog' && isBlogPage);
+                return (
+                  <Link
+                    key={link.href}
+                    to={link.href}
+                    className="nav-link"
+                    style={{
+                      color: isActive ? 'var(--color-brand)' : undefined,
+                      fontWeight: isActive ? 700 : undefined,
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              }
+
+              const targetHref = isBlogPage ? `/${link.href}` : link.href;
+              return (
+                <a key={link.href} href={targetHref} className="nav-link">
+                  {link.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Right Header Actions */}
@@ -129,7 +153,7 @@ export default function Navbar() {
               flexShrink: 0,
             }}
           >
-            {/* CTA Button — Responsive (compact on tablet, hidden on phone to prevent crowding) */}
+            {/* CTA Button — Responsive */}
             <a
               href={CWS_URL}
               target="_blank"
@@ -160,7 +184,7 @@ export default function Navbar() {
         <AnimatePresence>
           {mobileMenuOpen && (
             <>
-              {/* Dimmed backdrop overlay to dismiss when clicked outside */}
+              {/* Dimmed backdrop overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -179,17 +203,38 @@ export default function Navbar() {
                 className="mobile-menu-drawer"
               >
                 <div className="mobile-nav-links">
-                  {navLinks.map((link) => (
-                    <a
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="mobile-nav-item"
-                    >
-                      <span>{link.label}</span>
-                      <ChevronRight size={18} className="mobile-nav-chevron" />
-                    </a>
-                  ))}
+                  {navLinks.map((link) => {
+                    if (link.isRoute) {
+                      return (
+                        <Link
+                          key={link.href}
+                          to={link.href}
+                          onClick={() => setMobileMenuOpen(false)}
+                          className="mobile-nav-item"
+                          style={{
+                            color: isBlogPage ? 'var(--color-brand)' : undefined,
+                            fontWeight: isBlogPage ? 700 : undefined,
+                          }}
+                        >
+                          <span>{link.label}</span>
+                          <ChevronRight size={18} className="mobile-nav-chevron" />
+                        </Link>
+                      );
+                    }
+
+                    const targetHref = isBlogPage ? `/${link.href}` : link.href;
+                    return (
+                      <a
+                        key={link.href}
+                        href={targetHref}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="mobile-nav-item"
+                      >
+                        <span>{link.label}</span>
+                        <ChevronRight size={18} className="mobile-nav-chevron" />
+                      </a>
+                    );
+                  })}
                 </div>
 
                 {/* Primary Add to Chrome CTA in mobile drawer */}
@@ -230,4 +275,3 @@ export default function Navbar() {
     </>
   );
 }
-

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const CWS_URL = 'https://chromewebstore.google.com/detail/ijcnikejbjffhcnblofckaihgchkiged?utm_source=item-share-cb';
 
@@ -58,8 +59,16 @@ export default function Footer() {
             >
               Chrome Web Store
             </a>
+            <Link
+              to="/blog"
+              style={{ transition: 'color 0.15s ease', textDecoration: 'none', color: 'var(--color-text-secondary)' }}
+              onMouseEnter={(e) => (e.target.style.color = 'var(--color-ink)')}
+              onMouseLeave={(e) => (e.target.style.color = 'var(--color-text-secondary)')}
+            >
+              Blog & Guides
+            </Link>
             <a
-              href="#demo"
+              href="/#demo"
               style={{ transition: 'color 0.15s ease' }}
               onMouseEnter={(e) => (e.target.style.color = 'var(--color-ink)')}
               onMouseLeave={(e) => (e.target.style.color = 'var(--color-text-secondary)')}

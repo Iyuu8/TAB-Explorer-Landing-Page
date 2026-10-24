@@ -10,7 +10,27 @@ This document defines the automated, agent-operated daily blog writing pipeline 
 - **Execution Mode:** Chat-triggered, zero external API keys, zero external cron/schedulers.
 - **Trigger:** Initiated whenever the user sends a message like `"run the pipeline"`, optionally accompanied by extra context, an angle, or a topic instruction.
 - **Workflow State:** Tracked continuously across sessions in `pipeline/state.json`.
-- **Target Publication Format:** Markdown files (`.md`) compiled via `scripts/build-blog.js` into React client data (`src/posts/posts-data.json`), `public/sitemap.xml`, and `public/rss.xml`, deployed automatically via Git push to Vercel.
+- **Target Publication Format:** Markdown files (`src/posts/*.md`) compiled via `scripts/build-blog.js` and pre-rendered into fully static HTML pages (`build/blog/<slug>/index.html`) deployed automatically via Git push to Vercel.
+
+### Static HTML Pre-Rendering Engine (Built-in)
+Every blog post published to `src/posts/` is automatically processed through a 3-phase build pipeline:
+1. **Pre-build (`prebuild`):** `node scripts/build-blog.js` scans `src/posts/`, parses Markdown frontmatter, compiles `src/posts/posts-data.json`, updates `public/sitemap.xml`, and generates `public/rss.xml`.
+2. **Compile (`build`):** `react-scripts build` bundles React app assets into `build/index.html`.
+3. **Static Pre-render (`postbuild` / `--prerender`):** `node scripts/build-blog.js --prerender` transforms `build/index.html` into independent, fully formed static HTML files:
+   - `build/blog/index.html` & `build/blog.html` for the `/blog` index.
+   - `build/blog/<slug>/index.html` & `build/blog/<slug>.html` for each individual post.
+
+### Pre-Rendered Static Metadata & SEO Tags
+Every generated post page contains hardcoded, server-ready HTML head tags and structured data:
+- **Page Title:** `<title><post.title> — TAB Explorer</title>`
+- **Meta Description:** `<meta name="description" content="<post.description>" />`
+- **Canonical URL:** `<link rel="canonical" href="https://tabexplorer.site/blog/<slug>" />`
+- **Open Graph Tags:** `og:type` (`article`), `og:site_name`, `og:url`, `og:title`, `og:description`, `og:image`, `og:image:secure_url`, `og:image:width` (1400), `og:image:height` (560), `article:published_time`, `article:author`.
+- **Twitter Card Tags:** `twitter:card` (`summary_large_image`), `twitter:url`, `twitter:title`, `twitter:description`, `twitter:image`.
+- **JSON-LD Schema:** Valid Schema.org `BlogPosting` block with `headline`, `description`, `datePublished`, `dateModified`, `author`, `publisher`, and `image`.
+- **Pre-rendered Body:** Complete pre-rendered HTML structure directly inside `<div id="root">`, including universal header, breadcrumb navigation, article body markup, tags list, Chrome Web Store callout box, and site footer.
+
+**Vercel & Search Engine Serving:** When Googlebot, social scrapers (Twitter, LinkedIn, Slack, Facebook), or browsers request `https://tabexplorer.site/blog/<slug>`, Vercel serves the static HTML file immediately with HTTP 200, delivering complete text and metadata before client JavaScript hydrates.
 
 ---
 
@@ -19,18 +39,30 @@ This document defines the automated, agent-operated daily blog writing pipeline 
 ```
 landing_page/
 ├── GEMINI.md                            # Workspace rule ensuring pipeline behavior in all chats
+├── .agents/rules/blog-pipeline.md       # Backup workspace agent rule
+├── package.json                         # Scripts: prebuild, build (with --prerender), postbuild
 ├── scripts/
-│   └── build-blog.js                   # Parses src/posts/*.md -> posts-data.json, sitemap, rss
+│   └── build-blog.js                   # Dual-role: Markdown compiler & Static HTML pre-renderer
 ├── src/
 │   └── posts/                          # LIVE published blog articles (src/posts/*.md)
-│       └── posts-data.json             # Generated JSON index of published posts
+│       ├── posts-data.json             # Generated JSON index of published posts
+│       └── <slug>.md                   # Markdown source files
+├── public/
+│   ├── sitemap.xml                     # Auto-updated XML sitemap with all post URLs
+│   └── rss.xml                         # Auto-updated RSS 2.0 feed
+├── build/                              # Production output directory (created during build)
+│   ├── blog/
+│   │   ├── index.html                  # Pre-rendered static /blog index
+│   │   └── <slug>/
+│   │       └── index.html              # Pre-rendered static /blog/<slug> page
+│   └── blog.html                       # Fallback static /blog
 └── pipeline/
     ├── PIPELINE.md                     # This full pipeline specification
     ├── thing_to_avoid_when_writing.md  # Mandatory anti-AI writing & voice guidelines
     ├── extension_info.md               # The ONLY source of truth for Tab Explorer features
     ├── article_topics.md               # 50 topics in fixed publishing order
     ├── state.json                      # Persistent tracking state (keyed by topic title)
-    ├── verify.js                       # Automated linter for banned words & front matter
+    ├── verify.js                       # Automated linter for banned words & SEO front matter
     ├── manage.js                       # State manager CLI helper
     └── drafts/                         # Staging area for unapproved articles
         └── .gitkeep
@@ -100,6 +132,7 @@ When the user says `"run the pipeline"`:
 
 ### Step 4: Write the Article
 - Write the article following the blog's exact front matter and markdown formatting.
+- Ensure front matter fields (`title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`) are completely valid, as they directly feed the static pre-rendering head tags, Open Graph cards, Twitter cards, and Schema.org JSON-LD.
 - Follow human-voice guidelines: varied sentence lengths, natural paragraphs, conversational touches, concrete examples.
 - Include the primary keyword naturally and address secondary keywords and the specified angle.
 - Mention TAB Explorer only where it genuinely fits (typically in a natural concluding section or recommendation), linking to:
@@ -118,7 +151,7 @@ Verify:
 1. Anti-AI writing check: Zero banned words or clichés (`delve`, `tapestry`, `pivotal`, `in conclusion`, etc.).
 2. Fact-checking: Every Tab Explorer feature verified against `pipeline/extension_info.md`.
 3. No duplicate slug or title in `src/posts/` or `state.json`.
-4. Front matter integrity: all required fields present and valid.
+4. Front matter integrity: all required fields present, date format valid (`YYYY-MM-DD`), description suitable for search snippets (120-160 chars recommended), valid JSON-LD serialization.
 5. Chrome Web Store link present and accurate.
 
 ### Step 7: Present in Chat & Request Approval
@@ -126,7 +159,7 @@ Verify:
   - Article Title
   - Target File Name & Slug
   - Meta Description
-  - Quality checks summary
+  - Quality checks summary (verifier output & manual confirmation)
   - The full markdown article
 - Stop and explicitly ask the user for approval.
 - **NEVER** publish, move to `src/posts/`, commit, or push before user gives explicit approval in chat.
@@ -144,6 +177,7 @@ Depending on how the user responds in chat:
    ```bash
    node scripts/build-blog.js
    ```
+   *(If `build/index.html` exists locally, this also automatically updates the static pre-rendered HTML in `build/blog/<slug>/index.html`.)*
 4. Commit and push:
    ```bash
    git add src/posts/<slug>.md src/posts/posts-data.json public/sitemap.xml public/rss.xml pipeline/state.json
@@ -151,7 +185,8 @@ Depending on how the user responds in chat:
    git push origin master
    ```
 5. Confirm completion in chat and provide the live production URL:  
-   `https://tabexplorer.site/blog/<slug>`
+   `https://tabexplorer.site/blog/<slug>`  
+   *(Vercel automatically triggers `npm run build`, which runs `prebuild`, compiles the React app, and executes `postbuild: node scripts/build-blog.js --prerender` to serve the static HTML immediately with HTTP 200.)*
 
 ### If user says "rewrite" [with feedback] or "rewrite <topic/file>":
 1. Apply user feedback and rewrite the article.
@@ -169,7 +204,7 @@ Depending on how the user responds in chat:
 
 ---
 
-## 7. Article Front Matter & Markdown Standard
+## 7. Article Front Matter & Pre-Rendering Schema Mapping
 
 Every article must match this exact format:
 
@@ -188,17 +223,17 @@ tags: ["Chrome Tabs", "Study Workflows", "Organization"]
 [Article content in clean Markdown...]
 ```
 
-### Front Matter Schema
-| Field | Type | Description |
+### Front Matter to Static HTML Head & SEO Mapping
+| Markdown Field | Type | Injected Static HTML Output |
 |---|---|---|
-| `title` | String | Clear, engaging title matching or adapting the topic title |
-| `slug` | String | URL-safe lowercase alphanumeric slug with hyphens |
-| `date` | String | Publication date in `YYYY-MM-DD` |
-| `description` | String | 1–2 punchy sentences for SEO and card previews |
-| `author` | String | Default: `"Benaziza Ayoub"` |
-| `readTime` | String | e.g., `"5 min read"` |
-| `category` | String | e.g., `"Productivity"`, `"Study Workflows"`, `"Comparisons"`, `"Guides"` |
-| `tags` | Array | 2–5 relevant tags as string array |
+| `title` | String | `<title><title> — TAB Explorer</title>`, `og:title`, `twitter:title`, JSON-LD `headline`, `<h1>` heading |
+| `slug` | String | Path `/blog/<slug>`, canonical `<link rel="canonical" href="https://tabexplorer.site/blog/<slug>" />`, `og:url`, `twitter:url`, JSON-LD `@id` |
+| `date` | String (`YYYY-MM-DD`) | `article:published_time`, JSON-LD `datePublished` & `dateModified`, header date display |
+| `description` | String | `<meta name="description">`, `og:description`, `twitter:description`, JSON-LD `description`, lead paragraph `<p>` |
+| `author` | String | `article:author`, JSON-LD `author.name` (default: `"Benaziza Ayoub"`), author card display |
+| `readTime` | String | Header metadata badge (e.g., `"5 min read"`) |
+| `category` | String | Category pill badge (e.g., `"Productivity"`, `"Guides"`) |
+| `tags` | Array of Strings | Tag badges at the bottom of the article |
 
 ---
 

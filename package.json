@@ -23,7 +23,8 @@
     "prebuild": "node scripts/build-blog.js",
     "build:blog": "node scripts/build-blog.js",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node scripts/build-blog.js --prerender",
+    "postbuild": "node scripts/build-blog.js --prerender",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

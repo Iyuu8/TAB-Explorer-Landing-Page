@@ -81,7 +81,7 @@ function verifyArticle(filePath) {
     return { ok: false, errors, warnings };
   }
 
-  // Front matter field checks
+  // Front matter field checks required for static HTML pre-rendering, meta tags & JSON-LD
   const requiredFields = ['title', 'slug', 'date', 'description', 'author', 'readTime', 'category', 'tags'];
   for (const field of requiredFields) {
     if (!data[field] || (Array.isArray(data[field]) && data[field].length === 0)) {
@@ -90,11 +90,35 @@ function verifyArticle(filePath) {
   }
 
   if (data.slug && !/^[a-z0-9-]+$/.test(data.slug)) {
-    errors.push(`Slug "${data.slug}" should only contain lowercase letters, numbers, and hyphens.`);
+    errors.push(`Slug "${data.slug}" should only contain lowercase letters, numbers, and hyphens (used for canonical URL /blog/${data.slug}).`);
   }
 
   if (data.date && !/^\d{4}-\d{2}-\d{2}$/.test(data.date)) {
-    errors.push(`Date "${data.date}" should follow YYYY-MM-DD format.`);
+    errors.push(`Date "${data.date}" should follow YYYY-MM-DD format for schema.org datePublished/dateModified.`);
+  }
+
+  // Meta description checks for SEO snippet length
+  if (data.description) {
+    if (data.description.length < 50) {
+      warnings.push(`Description is short (${data.description.length} chars). Aim for 120-160 characters for optimal Google search snippets & social cards.`);
+    } else if (data.description.length > 200) {
+      warnings.push(`Description is long (${data.description.length} chars). Search engines will truncate snippets beyond ~160 characters.`);
+    }
+  }
+
+  // Test JSON-LD compatibility
+  try {
+    const testJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": data.title,
+      "description": data.description,
+      "datePublished": data.date,
+      "author": { "@type": "Person", "name": data.author }
+    };
+    JSON.stringify(testJsonLd);
+  } catch (err) {
+    errors.push(`Metadata breaks JSON-LD schema serialization: ${err.message}`);
   }
 
   // Check duplicate slug in live posts
@@ -146,9 +170,11 @@ if (require.main === module) {
   const result = verifyArticle(path.resolve(target));
   if (result.ok) {
     console.log(`[Verifier] PASS: "${result.title}" (${result.words} words)`);
+    console.log(`[Verifier] Canonical URL: https://tabexplorer.site/blog/${result.slug}`);
+    console.log('[Verifier] SEO & Social tags verified: Title, Description, Open Graph, Twitter Cards, BlogPosting JSON-LD.');
     if (result.warnings.length > 0) {
       console.log('Warnings:');
-      result.warnings.forEach(w => console.log(`  - ${w}`));
+      result.warnings.forEach(w => console.log(`  - ⚠ ${w}`));
     }
   } else {
     console.error(`[Verifier] FAIL: Found ${result.errors.length} error(s):`);

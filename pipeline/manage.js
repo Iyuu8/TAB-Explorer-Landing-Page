@@ -129,9 +129,9 @@ function approveDraft(fileName) {
   state.activeDraft = null;
   saveState(state);
 
-  // Run build-blog to update posts-data.json, sitemap.xml, rss.xml
-  console.log('[Pipeline Manage] Running build-blog.js...');
-  execSync('node scripts/build-blog.js', { stdio: 'inherit', cwd: path.join(__dirname, '..') });
+  // Run build-blog to update posts-data.json, sitemap.xml, rss.xml, and static HTML pre-render
+  console.log('[Pipeline Manage] Running build-blog.js with static pre-render...');
+  execSync('node scripts/build-blog.js --prerender', { stdio: 'inherit', cwd: path.join(__dirname, '..') });
 
   return { file: fileToApprove, destLivePath, slug: matched ? matched.slug : fileToApprove.replace(/\.md$/, '') };
 }

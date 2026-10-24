@@ -28,8 +28,13 @@ You (the agent) must execute the Daily Blog Writing Pipeline defined in detail i
    - **"skip"**: Mark topic as skipped in `state.json`, pick next pending.
    - **"change topic: [text]"**: Switch topic without advancing queue.
 
-## 2. Blog Engine Details
-- Live blog posts live in: `src/posts/*.md`.
-- Front matter fields: `title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`.
-- Pre-build script: `node scripts/build-blog.js` (compiles to `src/posts/posts-data.json`, `public/sitemap.xml`, and `public/rss.xml`).
-- Live site domain: `https://tabexplorer.site`.
+## 2. Blog Engine & Static Pre-Rendering Architecture
+- **Markdown Source:** Live blog posts live in `src/posts/*.md`.
+- **Front Matter Requirements:** `title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`.
+  *Note:* These front matter fields directly populate the static HTML `<title>`, `<meta description>`, canonical `<link>`, Open Graph, Twitter cards, and Schema.org `BlogPosting` JSON-LD at build time.
+- **3-Phase Build Process:**
+  1. `prebuild`: `node scripts/build-blog.js` compiles `src/posts/posts-data.json`, `public/sitemap.xml`, and `public/rss.xml`.
+  2. `build`: `react-scripts build` compiles the React application bundle.
+  3. `postbuild`: `node scripts/build-blog.js --prerender` reads the compiled template and writes standalone, pre-rendered static HTML files to `build/blog/index.html` and `build/blog/<slug>/index.html`.
+- **Static Serving:** Vercel immediately serves static HTML with HTTP 200 to search engines and social crawlers before client-side hydration.
+- **Live Site Domain:** `https://tabexplorer.site`.

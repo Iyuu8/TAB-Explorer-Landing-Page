@@ -1,14 +1,14 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-24T13:21:14.573Z",
+  "lastUpdated": "2026-10-24T13:56:43.993Z",
   "activeDraft": null,
   "topics": [
     {
       "title": "Scholarship and University Applications: Track Every Program in Your Browser",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "organize-university-scholarship-applications-browser.md",
+      "slug": "organize-university-scholarship-applications-browser",
+      "publishedDate": "2026-10-24",
       "primaryKeyword": "organize university applications",
       "secondaryKeywords": [
         "scholarship application tracker",

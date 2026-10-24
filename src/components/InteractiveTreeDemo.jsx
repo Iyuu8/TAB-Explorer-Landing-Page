@@ -137,6 +137,7 @@ const INITIAL_LINKS = [
   // Links in Personal / Dev folder
   { id: 'l5', workspaceId: 'ws-personal', parentId: 'f-dev', title: 'React Official Documentation', url: 'https://react.dev', icon: 'https://www.google.com/s2/favicons?domain=react.dev&sz=64' },
   { id: 'l6', workspaceId: 'ws-personal', parentId: 'f-dev', title: 'GitHub — TAB Explorer Repo', url: 'https://github.com/Iyuu8/TAB-Explorer', icon: 'https://www.google.com/s2/favicons?domain=github.com&sz=64' },
+  { id: 'l6b', workspaceId: 'ws-personal', parentId: 'f-dev', title: 'TAB Explorer — Official Website', url: 'https://tabexplorer.site', icon: '/assets/icon-128.png' },
   { id: 'l7', workspaceId: 'ws-personal', parentId: 'f-dev', title: 'Chrome Extensions API Docs', url: 'https://developer.chrome.com', icon: 'https://www.google.com/s2/favicons?domain=developer.chrome.com&sz=64' },
 
   // Links in Personal / Reading folder
@@ -674,9 +675,9 @@ export default function InteractiveTreeDemo() {
   const executeSaveTabs = () => {
     pushHistory();
     const mockNewTabs = [
-      { id: 'mock-' + Date.now() + '-1', title: 'Chrome Web Store: TAB Explorer', url: 'https://chromewebstore.google.com', icon: 'https://www.google.com/s2/favicons?domain=google.com&sz=64' },
-      { id: 'mock-' + Date.now() + '-2', title: 'GitHub — TAB Explorer Source', url: 'https://github.com/Iyuu8/TAB-Explorer', icon: 'https://www.google.com/s2/favicons?domain=github.com&sz=64' },
-      { id: 'mock-' + Date.now() + '-3', title: 'MDN Web Docs: Browser Extensions', url: 'https://developer.mozilla.org', icon: 'https://www.google.com/s2/favicons?domain=mozilla.org&sz=64' },
+      { id: 'mock-' + Date.now() + '-1', title: 'TAB Explorer — Official Website', url: 'https://tabexplorer.site', icon: '/assets/icon-128.png' },
+      { id: 'mock-' + Date.now() + '-2', title: 'Chrome Web Store: TAB Explorer', url: 'https://chromewebstore.google.com', icon: 'https://www.google.com/s2/favicons?domain=google.com&sz=64' },
+      { id: 'mock-' + Date.now() + '-3', title: 'GitHub — TAB Explorer Source', url: 'https://github.com/Iyuu8/TAB-Explorer', icon: 'https://www.google.com/s2/favicons?domain=github.com&sz=64' },
     ];
 
     if (saveTargetId === '__new__') {

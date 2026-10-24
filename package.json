@@ -2,6 +2,7 @@
   "name": "tab-explorer-landing",
   "version": "1.0.0",
   "description": "Official landing page for TAB Explorer Chrome Extension",
+  "homepage": "https://tabexplorer.site",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.2",

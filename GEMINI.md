@@ -16,13 +16,20 @@ You (the agent) must execute the Daily Blog Writing Pipeline defined in detail i
    - Priority 1: User explicitly orders a topic in their message. (If not in list, write as custom extra article in `state.json` without advancing list; if in list, mark that entry).
    - Priority 2: Pick first `pending` topic from `article_topics.md` in order, applying user's extra instructions/angle.
    - Priority 3: Never duplicate an existing drafted/published article.
-4. **Draft First:**
+4. **Mandatory Visuals (Every Article Must Include Pictures):**
+   - Articles must include pictures to illustrate workflows and avoid plain walls of text.
+   - **Allowed sources (3 categories):**
+     1. **Tab Explorer assets in the project:** Use existing images from `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, etc.).
+     2. **Actual screenshots of the extension:** Capture real UI screenshots of the extension side panel or full-page view.
+     3. **For general information / concepts:** Use AI-generated images OR royalty-free images taken directly from the internet (Unsplash, Pexels, Wikimedia Commons, CC0). **Strict rule:** Images from the internet must NEVER be copyrighted, watermarked, or unlicensed.
+   - Store article-specific images in `public/blog-assets/<slug>/` and link them via standard Markdown: `![Alt Text](/blog-assets/<slug>/filename.png)`.
+5. **Draft First:**
    - Save the article in `pipeline/drafts/<slug>.md`.
    - Run verification checks (`node pipeline/verify.js pipeline/drafts/<slug>.md`).
    - Present the title, file name, description, quality check summary, and full article in chat.
    - **Stop and ask for user approval.**
    - **NEVER** move to `src/posts/`, commit, or push to GitHub before the user says "approve" in chat.
-5. **Handling User Replies:**
+6. **Handling User Replies:**
    - **"approve"**: Move draft to `src/posts/<slug>.md` (or run `node pipeline/manage.js approve`), update `state.json`, rebuild via `node scripts/build-blog.js`, commit, and push (`git push origin master`). Report the live URL (`https://tabexplorer.site/blog/<slug>`).
    - **"rewrite"**: Apply feedback, re-verify, show updated version, ask for approval again.
    - **"skip"**: Mark topic as skipped in `state.json`, pick next pending.

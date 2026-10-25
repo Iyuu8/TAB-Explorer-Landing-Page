@@ -330,6 +330,25 @@ export default function BlogPost() {
         .blog-content-body p {
           margin-bottom: 22px;
         }
+        .blog-content-body img {
+          max-width: 100%;
+          height: auto;
+          border-radius: 12px;
+          border: 1px solid #E2EBF2;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+          margin: 32px auto;
+          display: block;
+        }
+        .blog-content-body figure {
+          margin: 32px 0;
+          text-align: center;
+        }
+        .blog-content-body figcaption {
+          margin-top: 10px;
+          font-size: 13.5px;
+          color: var(--color-text-secondary);
+          font-style: italic;
+        }
         .blog-content-body ul, .blog-content-body ol {
           margin-bottom: 24px;
           padding-left: 28px;

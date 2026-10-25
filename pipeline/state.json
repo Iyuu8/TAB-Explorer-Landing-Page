@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-24T13:56:43.993Z",
+  "lastUpdated": "2026-10-25T11:18:18.946Z",
   "activeDraft": null,
   "topics": [
     {
@@ -23,10 +23,10 @@
     },
     {
       "title": "Best Tab Managers for Students: Study Tab Savers on the Chrome Web Store",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "best-tab-managers-for-students.md",
+      "slug": "best-tab-managers-for-students",
+      "publishedDate": "2026-10-25",
       "primaryKeyword": "best tab manager for students",
       "secondaryKeywords": [
         "study tab saver chrome",

@@ -135,12 +135,22 @@ When the user says `"run the pipeline"`:
 - Ensure front matter fields (`title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`) are completely valid, as they directly feed the static pre-rendering head tags, Open Graph cards, Twitter cards, and Schema.org JSON-LD.
 - Follow human-voice guidelines: varied sentence lengths, natural paragraphs, conversational touches, concrete examples.
 - Include the primary keyword naturally and address secondary keywords and the specified angle.
+- **Mandatory Visuals (Every article must include pictures):**
+  - **For Tab Explorer:**
+    1. **Project Assets:** High-resolution screenshots already in `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`).
+    2. **Actual Screenshots:** Real screenshots of the extension's sidepanel or full-page view captured directly from the extension UI.
+  - **For General Information & Concepts:**
+    3. **AI-Generated Images OR Non-Copyrighted Internet Images:**
+       - Use AI-generated illustrations/diagrams, OR
+       - Use royalty-free, public domain, or open-licensed photos from the internet (e.g., Unsplash, Pexels, Wikimedia Commons). **Strict rule:** Internet images must NEVER be copyrighted, watermarked, or unlicensed.
+  - **Storage & Linking:** Save article-specific images into `public/blog-assets/<slug>/` so they deploy statically with the site, and embed them via standard Markdown: `![Descriptive Alt Text](/blog-assets/<slug>/filename.png)`. Always provide descriptive alt text.
 - Mention TAB Explorer only where it genuinely fits (typically in a natural concluding section or recommendation), linking to:
   `https://chromewebstore.google.com/detail/tab-explorer/ijcnikejbjffhcnblofckaihgchkiged`
 
 ### Step 5: Save as Draft
 - Save the completed draft in `pipeline/drafts/<slug>.md`.
-- Do **NOT** save into `src/posts/` yet.
+- Save any newly generated or downloaded image files into `public/blog-assets/<slug>/`.
+- Do **NOT** save the markdown post into `src/posts/` yet.
 
 ### Step 6: Automated & Quality Checks
 Before presenting the article, run:
@@ -150,9 +160,10 @@ node pipeline/verify.js pipeline/drafts/<slug>.md
 Verify:
 1. Anti-AI writing check: Zero banned words or clichés (`delve`, `tapestry`, `pivotal`, `in conclusion`, etc.).
 2. Fact-checking: Every Tab Explorer feature verified against `pipeline/extension_info.md`.
-3. No duplicate slug or title in `src/posts/` or `state.json`.
-4. Front matter integrity: all required fields present, date format valid (`YYYY-MM-DD`), description suitable for search snippets (120-160 chars recommended), valid JSON-LD serialization.
-5. Chrome Web Store link present and accurate.
+3. Visuals check: Contains relevant pictures from the 3 allowed sources with verified non-broken paths and descriptive alt text.
+4. No duplicate slug or title in `src/posts/` or `state.json`.
+5. Front matter integrity: all required fields present, date format valid (`YYYY-MM-DD`), description suitable for search snippets (120-160 chars recommended), valid JSON-LD serialization.
+6. Chrome Web Store link present and accurate.
 
 ### Step 7: Present in Chat & Request Approval
 - Display in chat:
@@ -242,4 +253,5 @@ tags: ["Chrome Tabs", "Study Workflows", "Organization"]
 - **Zero API Keys:** The agent writes the articles directly in conversation context.
 - **Zero Token Extraction:** Never inspect, read, or reuse authentication tokens or secrets.
 - **Fact-Lock:** Never fabricate numbers, statistics, benchmarks, or browser compatibility claims. If missing, ask the user.
+- **Strictly Non-Copyrighted Images:** Any pictures sourced from the internet must be verified free of copyright (e.g., Unsplash, Pexels, Wikimedia Commons, CC0 public domain). Never embed copyrighted or watermarked imagery.
 - **Preserve Documentation:** Never delete comments, code docstrings, or existing blog posts.

@@ -114,6 +114,25 @@ Do not use these words and phrases unless the topic truly demands them:
 
 ---
 
+## 8. Images and Visuals (Mandatory Requirement)
+
+Every blog post must include pictures to illustrate workflows, anchor concepts, and avoid walls of pure text.
+
+**Allowed Image Sources:**
+1. **For Tab Explorer Features & Workflows:**
+   - **Project Assets:** Use high-quality visuals from `public/assets/` (e.g., `screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`, `logo.png`).
+   - **Actual Extension Screenshots:** Real screenshots of the extension's side panel or full-page view captured directly from the extension UI.
+2. **For General Information & Concepts:**
+   - **AI-Generated Images:** High-resolution concept visuals, diagrams, or contextual scenes generated specifically for the article.
+   - **Non-Copyrighted Internet Images:** Royalty-free photos taken directly from the internet (Unsplash, Pexels, Wikimedia Commons, CC0 public domain). **Strict rule:** Images from the internet must NEVER be copyrighted, watermarked, or unlicensed.
+
+**Formatting & Delivery:**
+- Insert with standard Markdown: `![Descriptive Alt Text](/assets/... or /blog-assets/<slug>/...)`
+- Always write specific, descriptive alt text for accessibility and image SEO.
+- Store article-specific downloaded or generated images in `public/blog-assets/<slug>/` so they deploy cleanly with the static site.
+
+---
+
 ## Final Checklist
 
 Before you finish, check your draft:
@@ -125,5 +144,6 @@ Before you finish, check your draft:
 5. Does it open or close with a cliché like "In today's digital age" or "In conclusion"?
 6. Is every fact, quote, and statistic real and verifiable?
 7. Does each paragraph say something the previous one did not?
+8. Does the article include relevant pictures with verified, non-copyrighted sources and descriptive alt text?
 
-If any answer is yes, rewrite that part before delivering.
+If any answer to 1–5 is yes, or to 6–8 is no, rewrite or fix that part before delivering.

@@ -145,6 +145,31 @@ function verifyArticle(filePath) {
     }
   }
 
+  // Images check (Mandatory Visuals)
+  const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
+  const images = [];
+  let imgMatch;
+  while ((imgMatch = imageRegex.exec(content)) !== null) {
+    images.push({ alt: imgMatch[1].trim(), src: imgMatch[2].trim() });
+  }
+
+  if (images.length === 0) {
+    warnings.push('Article does not contain any images. Every blog post should include pictures (Tab Explorer assets, extension screenshots, AI visuals, or non-copyrighted web images).');
+  } else {
+    const publicDir = path.join(__dirname, '..', 'public');
+    for (const img of images) {
+      if (!img.alt) {
+        warnings.push(`Image "${img.src}" has empty alt text. Add descriptive alt text for accessibility and SEO.`);
+      }
+      if (img.src.startsWith('/')) {
+        const localPath = path.join(publicDir, img.src.replace(/^\//, ''));
+        if (!fs.existsSync(localPath)) {
+          errors.push(`Referenced local image does not exist on disk: ${img.src} (checked at ${localPath})`);
+        }
+      }
+    }
+  }
+
   // Link to Chrome Web Store
   if (!content.includes(CHROME_STORE_URL)) {
     warnings.push(`Article does not mention or link to Chrome Web Store URL (${CHROME_STORE_URL}). Check if a natural closing recommendation fits.`);
@@ -157,7 +182,7 @@ function verifyArticle(filePath) {
   }
 
   const ok = errors.length === 0;
-  return { ok, errors, warnings, words, title: data.title, slug: data.slug };
+  return { ok, errors, warnings, words, title: data.title, slug: data.slug, imageCount: images.length };
 }
 
 // CLI usage: node pipeline/verify.js <filepath>
@@ -169,7 +194,7 @@ if (require.main === module) {
   }
   const result = verifyArticle(path.resolve(target));
   if (result.ok) {
-    console.log(`[Verifier] PASS: "${result.title}" (${result.words} words)`);
+    console.log(`[Verifier] PASS: "${result.title}" (${result.words} words, ${result.imageCount} image(s))`);
     console.log(`[Verifier] Canonical URL: https://tabexplorer.site/blog/${result.slug}`);
     console.log('[Verifier] SEO & Social tags verified: Title, Description, Open Graph, Twitter Cards, BlogPosting JSON-LD.');
     if (result.warnings.length > 0) {

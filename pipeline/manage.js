@@ -5,6 +5,17 @@ const { execSync } = require('child_process');
 const STATE_FILE = path.join(__dirname, 'state.json');
 const DRAFTS_DIR = path.join(__dirname, 'drafts');
 const POSTS_DIR = path.join(__dirname, '..', 'src', 'posts');
+const ASSETS_DIR = path.join(__dirname, '..', 'public', 'assets');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+
+const PROJECT_ASSETS = [
+  'screenshot-1-overview.png',
+  'screenshot-2-organization.png',
+  'screenshot-3-session-restore.png',
+  'screenshot-4-customization.png',
+  'marquee-promo-tile-1400x560.png',
+  'small-promo-tile-440x280.png'
+];
 
 function loadState() {
   if (!fs.existsSync(STATE_FILE)) {
@@ -18,6 +29,102 @@ function saveState(state) {
   fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
 }
 
+function getAssetSizes() {
+  const sizes = {};
+  PROJECT_ASSETS.forEach(f => {
+    const full = path.join(ASSETS_DIR, f);
+    if (fs.existsSync(full)) {
+      sizes[f] = fs.statSync(full).size;
+    }
+  });
+  return sizes;
+}
+
+function auditAssetUsage() {
+  const state = loadState();
+  const assetSizes = getAssetSizes();
+  const usage = {};
+
+  PROJECT_ASSETS.forEach(asset => {
+    usage[asset] = { count: 0, lastUsedArticle: null, usedIn: [] };
+  });
+
+  if (!fs.existsSync(POSTS_DIR)) {
+    state.assetUsage = usage;
+    saveState(state);
+    return usage;
+  }
+
+  const posts = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'));
+
+  for (const post of posts) {
+    const content = fs.readFileSync(path.join(POSTS_DIR, post), 'utf8');
+    const slug = post.replace('.md', '');
+    const imgRegex = /!\[.*?\]\((.*?)\)/g;
+    let match;
+
+    while ((match = imgRegex.exec(content)) !== null) {
+      const src = match[1].trim();
+      for (const asset of PROJECT_ASSETS) {
+        let isMatch = false;
+        if (src.includes(asset)) {
+          isMatch = true;
+        } else if (src.startsWith('/')) {
+          const localPath = path.join(PUBLIC_DIR, src.replace(/^\//, ''));
+          if (fs.existsSync(localPath) && fs.statSync(localPath).size === assetSizes[asset]) {
+            isMatch = true;
+          }
+        }
+
+        if (isMatch) {
+          if (!usage[asset].usedIn.includes(slug)) {
+            usage[asset].count++;
+            usage[asset].lastUsedArticle = slug;
+            usage[asset].usedIn.push(slug);
+          }
+        }
+      }
+    }
+  }
+
+  state.assetUsage = usage;
+  saveState(state);
+  return usage;
+}
+
+function getAssetStats() {
+  const state = loadState();
+  const usage = state.assetUsage || auditAssetUsage();
+
+  // Find most recent published post to detect last used assets
+  let lastPublishedSlug = null;
+  const publishedTopics = (state.topics || []).filter(t => t.status === 'published' && t.publishedDate);
+  publishedTopics.sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate));
+  if (publishedTopics.length > 0) {
+    lastPublishedSlug = publishedTopics[0].slug;
+  }
+
+  const assetsArray = PROJECT_ASSETS.map(asset => ({
+    asset,
+    count: usage[asset] ? usage[asset].count : 0,
+    usedInLastArticle: usage[asset] ? usage[asset].usedIn.includes(lastPublishedSlug) : false,
+    lastUsedArticle: usage[asset] ? usage[asset].lastUsedArticle : null
+  }));
+
+  // Sort by count ascending (least used first)
+  assetsArray.sort((a, b) => a.count - b.count);
+
+  const recommendedForNext = assetsArray.filter(a => !a.usedInLastArticle);
+
+  return {
+    lastPublishedSlug,
+    assets: assetsArray,
+    recommendedForNext: recommendedForNext.map(a => a.asset),
+    maxPerArticle: 1,
+    rule: 'Prioritize images outside assets for general sections. Project assets are capped at <= 1 per article and only permitted when explicitly discussing Tab Explorer.'
+  };
+}
+
 function getStatus() {
   const state = loadState();
   const summary = {
@@ -27,22 +134,20 @@ function getStatus() {
     published: state.topics.filter(t => t.status === 'published').length,
     skipped: state.topics.filter(t => t.status === 'skipped').length,
     extraArticles: state.extraArticles ? state.extraArticles.length : 0,
-    activeDraft: state.activeDraft
+    activeDraft: state.activeDraft,
+    assetUsage: state.assetUsage || auditAssetUsage()
   };
   return { state, summary };
 }
 
 function findTopic(state, titleQuery) {
   const q = titleQuery.toLowerCase().trim();
-  // exact match first
   let topic = state.topics.find(t => t.title.toLowerCase() === q);
   if (topic) return { topic, isExtra: false };
 
-  // loose contains match
   topic = state.topics.find(t => t.title.toLowerCase().includes(q));
   if (topic) return { topic, isExtra: false };
 
-  // check extra articles
   if (state.extraArticles) {
     const extra = state.extraArticles.find(t => t.title.toLowerCase().includes(q));
     if (extra) return { topic: extra, isExtra: true };
@@ -64,7 +169,6 @@ function setDraft(title, fileName, slug) {
     found.fileName = fileName;
     found.slug = slug;
   } else {
-    // Custom topic not in list: add to extraArticles without advancing regular list
     if (!state.extraArticles) state.extraArticles = [];
     found = state.extraArticles.find(t => t.title.toLowerCase() === title.toLowerCase().trim());
     if (found) {
@@ -129,6 +233,9 @@ function approveDraft(fileName) {
   state.activeDraft = null;
   saveState(state);
 
+  // Re-audit asset usage
+  auditAssetUsage();
+
   // Run build-blog to update posts-data.json, sitemap.xml, rss.xml, and static HTML pre-render
   console.log('[Pipeline Manage] Running build-blog.js with static pre-render...');
   execSync('node scripts/build-blog.js --prerender', { stdio: 'inherit', cwd: path.join(__dirname, '..') });
@@ -160,6 +267,12 @@ if (require.main === module) {
       const state = loadState();
       const next = getNextPending(state);
       console.log(JSON.stringify(next, null, 2));
+    } else if (cmd === 'asset-stats') {
+      const stats = getAssetStats();
+      console.log(JSON.stringify(stats, null, 2));
+    } else if (cmd === 'audit-assets') {
+      const audited = auditAssetUsage();
+      console.log(JSON.stringify(audited, null, 2));
     } else if (cmd === 'set-draft') {
       const title = args[1];
       const fileName = args[2];
@@ -183,7 +296,7 @@ if (require.main === module) {
       const skipped = skipTopic(title);
       console.log(`Topic marked as skipped: "${skipped.title}"`);
     } else {
-      console.log('Commands: status, next, set-draft, approve, skip');
+      console.log('Commands: status, next, asset-stats, audit-assets, set-draft, approve, skip');
     }
   } catch (err) {
     console.error('Error:', err.message);
@@ -192,6 +305,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  PROJECT_ASSETS,
   loadState,
   saveState,
   getStatus,
@@ -199,5 +313,7 @@ module.exports = {
   getNextPending,
   setDraft,
   approveDraft,
-  skipTopic
+  skipTopic,
+  auditAssetUsage,
+  getAssetStats
 };

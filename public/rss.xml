@@ -5,8 +5,15 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Sun, 25 Oct 2026 11:18:19 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 26 Oct 2026 16:36:56 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[Online Course Learners (Coursera, Udemy, edX): Keep Every Course in One Folder]]></title>
+    <link>https://tabexplorer.site/blog/organize-online-courses-coursera-udemy</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/organize-online-courses-coursera-udemy</guid>
+    <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[A practical browser system for self-paced online learners to track Coursera, Udemy, and edX courses without tab sprawl or losing momentum.]]></description>
+  </item>
   <item>
     <title><![CDATA[Best Tab Managers for Students: Study Tab Savers on the Chrome Web Store]]></title>
     <link>https://tabexplorer.site/blog/best-tab-managers-for-students</link>

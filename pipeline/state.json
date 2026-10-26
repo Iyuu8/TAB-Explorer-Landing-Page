@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-25T11:18:18.946Z",
+  "lastUpdated": "2026-10-26T16:36:56.260Z",
   "activeDraft": null,
   "topics": [
     {
@@ -41,10 +41,10 @@
     },
     {
       "title": "Online Course Learners (Coursera, Udemy, edX): Keep Every Course in One Folder",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "organize-online-courses-coursera-udemy.md",
+      "slug": "organize-online-courses-coursera-udemy",
+      "publishedDate": "2026-10-26",
       "primaryKeyword": "organize online courses",
       "secondaryKeywords": [
         "coursera udemy workflow",
@@ -913,5 +913,43 @@
       "publishedDate": "2026-10-24",
       "isCustom": true
     }
-  ]
+  ],
+  "assetUsage": {
+    "screenshot-1-overview.png": {
+      "count": 1,
+      "lastUsedArticle": "best-tab-managers-for-students",
+      "usedIn": [
+        "best-tab-managers-for-students"
+      ]
+    },
+    "screenshot-2-organization.png": {
+      "count": 1,
+      "lastUsedArticle": "best-tab-managers-for-students",
+      "usedIn": [
+        "best-tab-managers-for-students"
+      ]
+    },
+    "screenshot-3-session-restore.png": {
+      "count": 0,
+      "lastUsedArticle": null,
+      "usedIn": []
+    },
+    "screenshot-4-customization.png": {
+      "count": 1,
+      "lastUsedArticle": "organize-online-courses-coursera-udemy",
+      "usedIn": [
+        "organize-online-courses-coursera-udemy"
+      ]
+    },
+    "marquee-promo-tile-1400x560.png": {
+      "count": 0,
+      "lastUsedArticle": null,
+      "usedIn": []
+    },
+    "small-promo-tile-440x280.png": {
+      "count": 0,
+      "lastUsedArticle": null,
+      "usedIn": []
+    }
+  }
 }

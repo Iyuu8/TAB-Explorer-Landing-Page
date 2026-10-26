@@ -94,6 +94,7 @@ landing_page/
    - `publishedDate`: Date published (YYYY-MM-DD)
    - `activeDraft`: Currently active draft under review
    - `extraArticles`: List for custom off-list topics ordered by the user
+   - `assetUsage`: Cumulative usage tracker for project assets (`public/assets/*.png`), tracking counts and article history to prevent visual repetition across articles.
 
 ---
 
@@ -135,14 +136,21 @@ When the user says `"run the pipeline"`:
 - Ensure front matter fields (`title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`) are completely valid, as they directly feed the static pre-rendering head tags, Open Graph cards, Twitter cards, and Schema.org JSON-LD.
 - Follow human-voice guidelines: varied sentence lengths, natural paragraphs, conversational touches, concrete examples.
 - Include the primary keyword naturally and address secondary keywords and the specified angle.
-- **Mandatory Visuals (Every article must include pictures):**
-  - **For Tab Explorer:**
-    1. **Project Assets:** High-resolution screenshots already in `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`).
-    2. **Actual Screenshots:** Real screenshots of the extension's sidepanel or full-page view captured directly from the extension UI.
-  - **For General Information & Concepts:**
-    3. **AI-Generated Images OR Non-Copyrighted Internet Images:**
-       - Use AI-generated illustrations/diagrams, OR
-       - Use royalty-free, public domain, or open-licensed photos from the internet (e.g., Unsplash, Pexels, Wikimedia Commons). **Strict rule:** Internet images must NEVER be copyrighted, watermarked, or unlicensed.
+- **Mandatory Visuals & Image Prioritization Rules:**
+  - **1. Prioritize Images Outside Assets for General Sections:**
+    - For all general sections (concepts, problem context, study setups, research tips, comparisons), **always prioritize images outside assets**:
+      - **Non-Copyrighted Web Images:** High-resolution photos from Unsplash, Pexels, Wikimedia Commons, CC0. Strict rule: never use copyrighted or watermarked photos.
+      - **AI-Generated Concept Visuals:** Diagrams or concept scenes created for the article.
+      - **New Browser Screenshots:** Real captures of research workflows or web setups.
+  - **2. Project Assets Used ONLY When Explicitly Discussing Tab Explorer:**
+    - Project assets from `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`) may **only** be used when explicitly demonstrating or discussing Tab Explorer itself.
+    - Never use project assets to illustrate general concepts or non-Tab Explorer sections.
+    - If Tab Explorer is only mentioned in a brief closing recommendation/call-to-action paragraph, use **zero** asset images.
+  - **3. Asset Distribution Budget (Max Ceiling $\le 1$, Anti-Repetition):**
+    - **Max Ceiling ($\le 1$):** At most 1 project asset image may be used in any single article.
+    - **Ceiling, Not a Target:** An article may use **0** asset images. If 0 are used, that opportunity transfers forward to future articles, while still ensuring that no single article ever exceeds 1 asset image.
+    - **Rotation by Usage Count:** Check `node pipeline/manage.js asset-stats` to pick the **least-used** asset that matches the feature discussed.
+    - **No Consecutive Repetition:** Never use the same project asset that was used in the immediately preceding published article.
   - **Storage & Linking:** Save article-specific images into `public/blog-assets/<slug>/` so they deploy statically with the site, and embed them via standard Markdown: `![Descriptive Alt Text](/blog-assets/<slug>/filename.png)`. Always provide descriptive alt text.
 - Mention TAB Explorer only where it genuinely fits (typically in a natural concluding section or recommendation), linking to:
   `https://chromewebstore.google.com/detail/tab-explorer/ijcnikejbjffhcnblofckaihgchkiged`
@@ -160,7 +168,7 @@ node pipeline/verify.js pipeline/drafts/<slug>.md
 Verify:
 1. Anti-AI writing check: Zero banned words or clichés (`delve`, `tapestry`, `pivotal`, `in conclusion`, etc.).
 2. Fact-checking: Every Tab Explorer feature verified against `pipeline/extension_info.md`.
-3. Visuals check: Contains relevant pictures from the 3 allowed sources with verified non-broken paths and descriptive alt text.
+3. Visuals check: Contains pictures prioritizing images outside assets. Project assets capped at $\le 1$ max, used only in explicit Tab Explorer sections, not repeated consecutively from the previous article, with verified non-broken paths and descriptive alt text.
 4. No duplicate slug or title in `src/posts/` or `state.json`.
 5. Front matter integrity: all required fields present, date format valid (`YYYY-MM-DD`), description suitable for search snippets (120-160 chars recommended), valid JSON-LD serialization.
 6. Chrome Web Store link present and accurate.

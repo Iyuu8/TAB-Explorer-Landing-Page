@@ -5,8 +5,15 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 26 Oct 2026 16:36:56 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 27 Oct 2026 12:21:18 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[The Morning Launch Folder: Open Your Daily Sites in One Click]]></title>
+    <link>https://tabexplorer.site/blog/morning-launch-folder-open-daily-sites</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/morning-launch-folder-open-daily-sites</guid>
+    <pubDate>Tue, 27 Oct 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[A simple guide to launching your daily work stack in Chrome without lagging your machine or locking your browser into rigid startup pages.]]></description>
+  </item>
   <item>
     <title><![CDATA[Online Course Learners (Coursera, Udemy, edX): Keep Every Course in One Folder]]></title>
     <link>https://tabexplorer.site/blog/organize-online-courses-coursera-udemy</link>

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-26T16:36:56.260Z",
+  "lastUpdated": "2026-10-27T12:21:18.542Z",
   "activeDraft": null,
   "topics": [
     {
@@ -59,10 +59,10 @@
     },
     {
       "title": "The Morning Launch Folder: Open Your Daily Sites in One Click",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "morning-launch-folder-open-daily-sites.md",
+      "slug": "morning-launch-folder-open-daily-sites",
+      "publishedDate": "2026-10-27",
       "primaryKeyword": "open multiple websites at once chrome",
       "secondaryKeywords": [
         "chrome startup pages multiple",
@@ -930,9 +930,11 @@
       ]
     },
     "screenshot-3-session-restore.png": {
-      "count": 0,
-      "lastUsedArticle": null,
-      "usedIn": []
+      "count": 1,
+      "lastUsedArticle": "morning-launch-folder-open-daily-sites",
+      "usedIn": [
+        "morning-launch-folder-open-daily-sites"
+      ]
     },
     "screenshot-4-customization.png": {
       "count": 1,

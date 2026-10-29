@@ -114,31 +114,13 @@ Do not use these words and phrases unless the topic truly demands them:
 
 ---
 
-## 8. Images and Visuals (Mandatory Requirement & Prioritization)
+## 8. Images and Visuals Policy (User-Driven Workflow)
 
-Every blog post must include pictures to illustrate workflows, anchor concepts, and avoid walls of pure text. To keep the blog fresh and avoid repetitive visual fatigue across articles, follow this strict prioritization:
+The agent writes all articles **without images** by default.
 
-**1. Prioritize Images Outside Assets for General Sections:**
-- For all introductory context, problem statements, study setups, research workflows, productivity concepts, and comparisons, **always prioritize images outside assets**:
-  - **Non-Copyrighted Web Images:** High-quality, royalty-free photos taken directly from the internet (Unsplash, Pexels, Wikimedia Commons, CC0 public domain). **Strict rule:** Images from the internet must NEVER be copyrighted, watermarked, or unlicensed.
-  - **AI-Generated Concept Visuals:** Custom illustrations or diagrams generated specifically for the article.
-  - **New Workstation/Browser Screenshots:** Fresh captures of research workflows or web portals.
-
-**2. Use Project Assets ONLY When Explicitly Discussing Tab Explorer:**
-- Existing project assets from `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`) may **only** be used when explicitly demonstrating or discussing Tab Explorer itself.
-- **Do not** use project assets to illustrate generic concepts, problems, or non-Tab Explorer sections.
-- If Tab Explorer is only mentioned in a brief closing recommendation/call-to-action paragraph, use **zero** asset images.
-
-**3. Asset Distribution Rules (Max Ceiling $\le 1$, Anti-Repetition):**
-- **Maximum Ceiling ($\le 1$):** Each article has a maximum budget of **at most 1 project asset image**.
-- **Not a mandatory target:** An article can use 0 asset images. If an article uses 0, that unused allowance transfers forward to future articles, but **no single article may ever use more than 1 asset image**.
-- **Rotation by Usage Count:** Always consult `state.json` (`node pipeline/manage.js asset-stats`) and pick the **least-used** asset that fits the specific feature discussed.
-- **No Consecutive Repetition:** Never use the same project asset that was used in the immediately preceding published article.
-
-**Formatting & Delivery:**
-- Insert with standard Markdown: `![Descriptive Alt Text](/assets/... or /blog-assets/<slug>/...)`
-- Always write specific, descriptive alt text for accessibility and image SEO.
-- Store article-specific downloaded or generated images in `public/blog-assets/<slug>/` so they deploy cleanly with the static site.
+- Do not automatically insert images, screenshots, or asset placeholders when drafting.
+- The user decides whether to add images after reviewing the text draft.
+- When the user provides images and specifies where they should go, insert them at the designated positions with clean Markdown syntax and descriptive alt text.
 
 ---
 
@@ -153,7 +135,6 @@ Before you finish, check your draft:
 5. Does it open or close with a cliché like "In today's digital age" or "In conclusion"?
 6. Is every fact, quote, and statistic real and verifiable?
 7. Does each paragraph say something the previous one did not?
-8. Does the article include pictures prioritizing images outside assets for general sections?
-9. Are project assets used strictly when explicitly discussing Tab Explorer, capped at $\le 1$ max, and not repeated from the previous article?
+8. Is the draft written cleanly without unsolicited automatic image insertions?
 
-If any answer to 1–5 is yes, or to 6–9 is no, rewrite or fix that part before delivering.
+If any answer to 1–5 is yes, or to 6–8 is no, rewrite or fix that part before delivering.

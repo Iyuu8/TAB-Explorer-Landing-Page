@@ -16,20 +16,27 @@ You (the agent) must execute the Daily Blog Writing Pipeline defined in detail i
    - Priority 1: User explicitly orders a topic in their message. (If not in list, write as custom extra article in `state.json` without advancing list; if in list, mark that entry).
    - Priority 2: Pick first `pending` topic from `article_topics.md` in order, applying user's extra instructions/angle.
    - Priority 3: Never duplicate an existing drafted/published article.
-4. **Mandatory Visuals & Asset Prioritization (Avoid Repetitiveness):**
-   - **Prioritize Images Outside Assets for General Sections:** For all general concepts, problem framing, study/work setups, and research tips, always prioritize images outside assets (AI-generated illustrations or non-copyrighted/royalty-free web photos from Unsplash, Pexels, Wikimedia, CC0). Never use copyrighted images.
-   - **Use Project Assets ONLY When Explicitly Discussing Tab Explorer:** Visuals from `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, etc.) may only be used when explicitly demonstrating Tab Explorer itself. Never use them for generic points.
-   - **Asset Distribution Ceiling (<= 1 per article):** Each article has a maximum budget of at most 1 project asset image (<= 1). An article can use 0 asset images; unused allowance transfers forward to future articles without exceeding the 1-asset ceiling.
-   - **Track & Rotate Usage:** Keep count of asset usage in `state.json` (`node pipeline/manage.js asset-stats`). Always pick the least-used asset and never repeat the asset used in the immediately preceding article.
-   - Store article-specific images in `public/blog-assets/<slug>/` and link them via standard Markdown: `![Alt Text](/blog-assets/<slug>/filename.png)`.
-5. **Draft First:**
+4. **User-Driven Images Workflow (Agent Writes Without Images):**
+   - The agent writes the article text cleanly **without images**. Do not insert images, screenshots, or visual placeholders automatically.
+   - The user decides whether and where to add images after reviewing the text draft.
+5. **Draft First & Present Choices:**
    - Save the article in `pipeline/drafts/<slug>.md`.
    - Run verification checks (`node pipeline/verify.js pipeline/drafts/<slug>.md`).
    - Present the title, file name, description, quality check summary, and full article in chat.
-   - **Stop and ask for user approval.**
+   - **Stop and ask the user for their decision:**
+     - **"approve"**: Publish the article immediately as-is without adding images.
+     - **"add images"**: Reply with images and descriptions of where they should be placed.
+     - **"rewrite"**: Reply with feedback to rewrite or refine the text.
+     - **"skip"**: Mark topic as skipped in `state.json` and pick the next pending topic.
+     - **"change topic: [text]"**: Switch to a different topic without advancing the list.
    - **NEVER** move to `src/posts/`, commit, or push to GitHub before the user says "approve" in chat.
 6. **Handling User Replies:**
-   - **"approve"**: Move draft to `src/posts/<slug>.md` (or run `node pipeline/manage.js approve`), update `state.json`, rebuild via `node scripts/build-blog.js`, commit, and push (`git push origin master`). Report the live URL (`https://tabexplorer.site/blog/<slug>`).
+   - **"approve"**: Move draft to `src/posts/<slug>.md` (or run `node pipeline/manage.js approve`), update `state.json`, rebuild via `node scripts/build-blog.js`, commit, and push (`git push origin master`). Report the live URL (`https://tabexplorer.site/blog/<slug>`). Publishes the article as-is without images if none were added.
+   - **"add images"** (with user's images & placement descriptions):
+     - Place/save images in `public/blog-assets/<slug>/<filename>` (if local/new).
+     - Insert each image into `pipeline/drafts/<slug>.md` at the designated positions using standard Markdown (`![Alt Text](/blog-assets/<slug>/filename.png)`).
+     - Re-run `node pipeline/verify.js pipeline/drafts/<slug>.md`.
+     - Present the updated draft with images in chat and ask for decision ("approve" to publish, or further edits).
    - **"rewrite"**: Apply feedback, re-verify, show updated version, ask for approval again.
    - **"skip"**: Mark topic as skipped in `state.json`, pick next pending.
    - **"change topic: [text]"**: Switch topic without advancing queue.

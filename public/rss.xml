@@ -5,8 +5,15 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 27 Oct 2026 12:21:18 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 29 Oct 2026 17:34:45 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[AI Power Users: Keep ChatGPT, Claude and Gemini Sessions Organized Per Project]]></title>
+    <link>https://tabexplorer.site/blog/organize-ai-chats-by-project</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/organize-ai-chats-by-project</guid>
+    <pubDate>Thu, 29 Oct 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[How to organize ChatGPT, Claude, and Gemini conversations by project alongside your docs and code instead of losing them in endless sidebar histories.]]></description>
+  </item>
   <item>
     <title><![CDATA[The Morning Launch Folder: Open Your Daily Sites in One Click]]></title>
     <link>https://tabexplorer.site/blog/morning-launch-folder-open-daily-sites</link>

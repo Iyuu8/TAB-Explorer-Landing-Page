@@ -154,7 +154,7 @@ function verifyArticle(filePath) {
     }
   }
 
-  // Images check (Mandatory Visuals, Prioritization & Asset Distribution)
+  // Images check (User-driven workflow: images are optional, validated if present)
   const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
   const images = [];
   let imgMatch;
@@ -163,99 +163,16 @@ function verifyArticle(filePath) {
   }
 
   const publicDir = path.join(__dirname, '..', 'public');
-  const assetsDir = path.join(publicDir, 'assets');
-  const assetSizes = {};
-  for (const a of PROJECT_ASSETS) {
-    const full = path.join(assetsDir, a);
-    if (fs.existsSync(full)) {
-      assetSizes[a] = fs.statSync(full).size;
-    }
-  }
-
-  let state = null;
-  const statePath = path.join(__dirname, 'state.json');
-  if (fs.existsSync(statePath)) {
-    try {
-      state = JSON.parse(fs.readFileSync(statePath, 'utf8'));
-    } catch (e) {}
-  }
-
-  const assetMatches = [];
-  const outsideMatches = [];
 
   for (const img of images) {
     if (!img.alt) {
       warnings.push(`Image "${img.src}" has empty alt text. Add descriptive alt text for accessibility and SEO.`);
     }
-
-    let isAsset = false;
-    let detectedAssetName = null;
-
-    for (const a of PROJECT_ASSETS) {
-      if (img.src.includes(a)) {
-        isAsset = true;
-        detectedAssetName = a;
-        break;
-      }
-    }
-
     if (img.src.startsWith('/')) {
       const localPath = path.join(publicDir, img.src.replace(/^\//, ''));
       if (!fs.existsSync(localPath)) {
         errors.push(`Referenced local image does not exist on disk: ${img.src} (checked at ${localPath})`);
-      } else if (!isAsset) {
-        const sz = fs.statSync(localPath).size;
-        for (const a of PROJECT_ASSETS) {
-          if (assetSizes[a] === sz) {
-            isAsset = true;
-            detectedAssetName = a;
-            break;
-          }
-        }
       }
-    }
-
-    if (isAsset) {
-      assetMatches.push({ asset: detectedAssetName, src: img.src, alt: img.alt });
-    } else {
-      outsideMatches.push({ src: img.src, alt: img.alt });
-    }
-  }
-
-  if (images.length === 0) {
-    warnings.push('Article does not contain any images. Every blog post should include pictures.');
-  } else {
-    // 1. Enforce max asset ceiling: <= 1 project asset per article
-    if (assetMatches.length > 1) {
-      errors.push(`Asset usage limit exceeded: article references ${assetMatches.length} project asset images (${assetMatches.map(a => a.asset).join(', ')}). Maximum allowed is 1 per article (<= 1) to prevent repetitiveness. General sections must prioritize images outside assets (AI-generated or non-copyrighted web photos).`);
-    }
-
-    // 2. When an asset is used (<= 1), check that Tab Explorer is explicitly discussed
-    if (assetMatches.length === 1) {
-      const asset = assetMatches[0];
-      const hasExplicitTabExplorer = /tab\s*explorer/i.test(content);
-      if (!hasExplicitTabExplorer) {
-        warnings.push(`Project asset "${asset.asset}" is used, but Tab Explorer is not explicitly discussed in the article text. Project assets should only be used when explicitly demonstrating Tab Explorer.`);
-      }
-
-      // Check against consecutive reuse
-      if (state && state.topics) {
-        const published = (state.topics || []).filter(t => t.status === 'published' && t.publishedDate);
-        published.sort((a, b) => new Date(b.publishedDate) - new Date(a.publishedDate));
-        const lastSlug = published.length > 0 ? published[0].slug : null;
-
-        if (state.assetUsage && state.assetUsage[asset.asset]) {
-          const usedIn = state.assetUsage[asset.asset].usedIn || [];
-          if (lastSlug && usedIn.includes(lastSlug)) {
-            warnings.push(`Asset image "${asset.asset}" was used in the immediately preceding published article ("${lastSlug}"). To avoid consecutive repetition, rotate to an unused asset (e.g. screenshot-3-session-restore.png, screenshot-4-customization.png) or use 0 assets.`);
-          }
-        }
-      }
-    }
-
-    // 3. Check prioritization: outside images should be present when covering broad topics
-    if (assetMatches.length > 0 && outsideMatches.length === 0) {
-      warnings.push('All images in this article are project assets. Articles should prioritize images outside assets (AI-generated or royalty-free web photos) for general sections.');
     }
   }
 
@@ -279,9 +196,7 @@ function verifyArticle(filePath) {
     title: data.title,
     slug: data.slug,
     totalImages: images.length,
-    assetCount: assetMatches.length,
-    outsideCount: outsideMatches.length,
-    assetMatches
+    images
   };
 }
 
@@ -296,7 +211,7 @@ if (require.main === module) {
   if (result.ok) {
     console.log(`[Verifier] PASS: "${result.title}" (${result.words} words)`);
     console.log(`[Verifier] Canonical URL: https://tabexplorer.site/blog/${result.slug}`);
-    console.log(`[Verifier] Visuals: ${result.totalImages} total (${result.outsideCount} outside assets, ${result.assetCount} project asset [max <= 1])`);
+    console.log(`[Verifier] Visuals: ${result.totalImages} image(s) verified`);
     console.log('[Verifier] SEO & Social tags verified: Title, Description, Open Graph, Twitter Cards, BlogPosting JSON-LD.');
     if (result.warnings.length > 0) {
       console.log('Warnings:');
@@ -313,4 +228,4 @@ if (require.main === module) {
   }
 }
 
-module.exports = { verifyArticle, parseFrontmatter, PROJECT_ASSETS };
+module.exports = { verifyArticle, parseFrontmatter };

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-27T12:21:18.542Z",
+  "lastUpdated": "2026-10-29T17:34:44.929Z",
   "activeDraft": null,
   "topics": [
     {
@@ -77,10 +77,10 @@
     },
     {
       "title": "AI Power Users: Keep ChatGPT, Claude and Gemini Sessions Organized Per Project",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "organize-ai-chats-by-project.md",
+      "slug": "organize-ai-chats-by-project",
+      "publishedDate": "2026-10-29",
       "primaryKeyword": "organize ai chats by project",
       "secondaryKeywords": [
         "organize chatgpt conversations",

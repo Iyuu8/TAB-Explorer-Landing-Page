@@ -94,7 +94,7 @@ landing_page/
    - `publishedDate`: Date published (YYYY-MM-DD)
    - `activeDraft`: Currently active draft under review
    - `extraArticles`: List for custom off-list topics ordered by the user
-   - `assetUsage`: Cumulative usage tracker for project assets (`public/assets/*.png`), tracking counts and article history to prevent visual repetition across articles.
+   - `assetUsage`: Historical usage tracker for project assets (optional reference).
 
 ---
 
@@ -131,33 +131,17 @@ When the user says `"run the pipeline"`:
 - If the topic entry contains `⚠ Confirm first`, verify every claim about TAB Explorer against `pipeline/extension_info.md`.
 - If an essential factual claim is not answered by `extension_info.md` or the user's message, stop and ask the user for confirmation before writing.
 
-### Step 4: Write the Article
+### Step 4: Write the Article (Text-Only First)
 - Write the article following the blog's exact front matter and markdown formatting.
 - Ensure front matter fields (`title`, `slug`, `date`, `description`, `author`, `readTime`, `category`, `tags`) are completely valid, as they directly feed the static pre-rendering head tags, Open Graph cards, Twitter cards, and Schema.org JSON-LD.
 - Follow human-voice guidelines: varied sentence lengths, natural paragraphs, conversational touches, concrete examples.
 - Include the primary keyword naturally and address secondary keywords and the specified angle.
-- **Mandatory Visuals & Image Prioritization Rules:**
-  - **1. Prioritize Images Outside Assets for General Sections:**
-    - For all general sections (concepts, problem context, study setups, research tips, comparisons), **always prioritize images outside assets**:
-      - **Non-Copyrighted Web Images:** High-resolution photos from Unsplash, Pexels, Wikimedia Commons, CC0. Strict rule: never use copyrighted or watermarked photos.
-      - **AI-Generated Concept Visuals:** Diagrams or concept scenes created for the article.
-      - **New Browser Screenshots:** Real captures of research workflows or web setups.
-  - **2. Project Assets Used ONLY When Explicitly Discussing Tab Explorer:**
-    - Project assets from `public/assets/` (`screenshot-1-overview.png`, `screenshot-2-organization.png`, `screenshot-3-session-restore.png`, `screenshot-4-customization.png`, `marquee-promo-tile-1400x560.png`, `small-promo-tile-440x280.png`) may **only** be used when explicitly demonstrating or discussing Tab Explorer itself.
-    - Never use project assets to illustrate general concepts or non-Tab Explorer sections.
-    - If Tab Explorer is only mentioned in a brief closing recommendation/call-to-action paragraph, use **zero** asset images.
-  - **3. Asset Distribution Budget (Max Ceiling $\le 1$, Anti-Repetition):**
-    - **Max Ceiling ($\le 1$):** At most 1 project asset image may be used in any single article.
-    - **Ceiling, Not a Target:** An article may use **0** asset images. If 0 are used, that opportunity transfers forward to future articles, while still ensuring that no single article ever exceeds 1 asset image.
-    - **Rotation by Usage Count:** Check `node pipeline/manage.js asset-stats` to pick the **least-used** asset that matches the feature discussed.
-    - **No Consecutive Repetition:** Never use the same project asset that was used in the immediately preceding published article.
-  - **Storage & Linking:** Save article-specific images into `public/blog-assets/<slug>/` so they deploy statically with the site, and embed them via standard Markdown: `![Descriptive Alt Text](/blog-assets/<slug>/filename.png)`. Always provide descriptive alt text.
+- **Draft Without Images:** The agent writes the article purely as text **without images**. Do not insert images, screenshots, or visual placeholders automatically.
 - Mention TAB Explorer only where it genuinely fits (typically in a natural concluding section or recommendation), linking to:
   `https://chromewebstore.google.com/detail/tab-explorer/ijcnikejbjffhcnblofckaihgchkiged`
 
 ### Step 5: Save as Draft
-- Save the completed draft in `pipeline/drafts/<slug>.md`.
-- Save any newly generated or downloaded image files into `public/blog-assets/<slug>/`.
+- Save the completed text draft in `pipeline/drafts/<slug>.md`.
 - Do **NOT** save the markdown post into `src/posts/` yet.
 
 ### Step 6: Automated & Quality Checks
@@ -168,19 +152,24 @@ node pipeline/verify.js pipeline/drafts/<slug>.md
 Verify:
 1. Anti-AI writing check: Zero banned words or clichés (`delve`, `tapestry`, `pivotal`, `in conclusion`, etc.).
 2. Fact-checking: Every Tab Explorer feature verified against `pipeline/extension_info.md`.
-3. Visuals check: Contains pictures prioritizing images outside assets. Project assets capped at $\le 1$ max, used only in explicit Tab Explorer sections, not repeated consecutively from the previous article, with verified non-broken paths and descriptive alt text.
+3. Image validation (if present): If the draft contains images, verify that alt text is non-empty and local files exist on disk. (Drafts with 0 images pass cleanly without warnings).
 4. No duplicate slug or title in `src/posts/` or `state.json`.
 5. Front matter integrity: all required fields present, date format valid (`YYYY-MM-DD`), description suitable for search snippets (120-160 chars recommended), valid JSON-LD serialization.
 6. Chrome Web Store link present and accurate.
 
-### Step 7: Present in Chat & Request Approval
+### Step 7: Present in Chat & Request Decision
 - Display in chat:
   - Article Title
   - Target File Name & Slug
   - Meta Description
   - Quality checks summary (verifier output & manual confirmation)
   - The full markdown article
-- Stop and explicitly ask the user for approval.
+- Stop and explicitly ask the user for their decision:
+  - **"approve"**: Publish this article immediately as-is without adding images.
+  - **"add images"**: Reply with images and descriptions of where they should be placed.
+  - **"rewrite"**: Reply with feedback to rewrite or refine the text.
+  - **"skip"**: Mark this topic as skipped and move to the next.
+  - **"change topic: [text]"**: Switch to a different topic without advancing the queue.
 - **NEVER** publish, move to `src/posts/`, commit, or push before user gives explicit approval in chat.
 
 ---
@@ -194,9 +183,8 @@ Depending on how the user responds in chat:
 2. Update `pipeline/state.json`: mark topic status as `"published"`, record `publishedDate`.
 3. Rebuild blog assets:
    ```bash
-   node scripts/build-blog.js
+   node scripts/build-blog.js --prerender
    ```
-   *(If `build/index.html` exists locally, this also automatically updates the static pre-rendered HTML in `build/blog/<slug>/index.html`.)*
 4. Commit and push:
    ```bash
    git add src/posts/<slug>.md src/posts/posts-data.json public/sitemap.xml public/rss.xml pipeline/state.json
@@ -205,13 +193,25 @@ Depending on how the user responds in chat:
    ```
 5. Confirm completion in chat and provide the live production URL:  
    `https://tabexplorer.site/blog/<slug>`  
-   *(Vercel automatically triggers `npm run build`, which runs `prebuild`, compiles the React app, and executes `postbuild: node scripts/build-blog.js --prerender` to serve the static HTML immediately with HTTP 200.)*
+   *(Publishes the article as-is, with or without images, according to what was in the approved draft).*
+
+### If user says "add images" (with images and placement instructions):
+1. The user's prompt provides the images (file paths, filenames, or attachments) and descriptions of where each image should be placed in the article.
+2. If the images are local files or attachments, save/copy them into `public/blog-assets/<slug>/<filename>`.
+3. Edit `pipeline/drafts/<slug>.md`, inserting each image at the user-specified position using standard Markdown:
+   ```markdown
+   ![Descriptive Alt Text](/blog-assets/<slug>/filename.png)
+   *Optional caption describing the image.*
+   ```
+4. Re-run verification: `node pipeline/verify.js pipeline/drafts/<slug>.md` to ensure all image paths exist on disk and front matter is intact.
+5. Present the updated article with the inserted images in chat.
+6. Ask the user for their decision (**"approve"** to publish with the new images, further adjustments, or rewrite).
 
 ### If user says "rewrite" [with feedback] or "rewrite <topic/file>":
-1. Apply user feedback and rewrite the article.
+1. Apply user feedback and rewrite the article text.
 2. If working on a draft, update `pipeline/drafts/<slug>.md`.
 3. If working on an already published article, edit `src/posts/<slug>.md`, rebuild via `node scripts/build-blog.js`, but only commit and push after user re-approves.
-4. Run `pipeline/verify.js`, present the new version in chat, and ask for approval again.
+4. Run `pipeline/verify.js`, present the new version in chat, and ask for decision again.
 
 ### If user says "skip":
 1. Mark the topic as `"skipped"` in `pipeline/state.json` (or `node pipeline/manage.js skip "<title>"`).

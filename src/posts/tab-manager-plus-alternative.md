@@ -7,7 +7,10 @@ author: "Benaziza Ayoub"
 readTime: "7 min read"
 category: "Comparisons"
 tags: ["Tab Management", "Chrome Extensions", "Productivity", "Comparisons"]
+coverImage: "/blog-assets/tab-manager-plus-alternative/From_Tab_Clutter_to_Organized_Folders.png"
 ---
+
+<img src="/blog-assets/tab-manager-plus-alternative/From_Tab_Clutter_to_Organized_Folders.png" alt="Comparison of a flat tab grid in Tab Manager Plus with a nested folder tree in Tab Explorer" width="1536" height="1024" loading="eager" fetchpriority="high" style="width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto 32px auto;" />
 
 When you have forty tabs open across three browser windows, your top tab strip turns into an unreadable smear of truncated text. You cannot see page titles, you accidentally close active documents when trying to switch tabs, and your machine feels sluggish.
 
@@ -32,6 +35,11 @@ Three specific capabilities stand out:
 1. **Window-Level Triage:** If you split your browsing across multiple physical monitors or virtual desktops, Tab Manager Plus displays each window as a separate box in the grid. Moving eight tabs from Window A to Window B is as simple as dragging them across boxes.
 2. **Instant Duplicate Detection:** When research gets chaotic, it is easy to open the same GitHub issue or documentation page three times without noticing. The extension flags duplicate URLs so you can kill redundant tabs with a single click.
 3. **Fast Filtering:** As a dedicated search open tabs extension, typing into its search bar immediately filters the grid down to matching tabs across all open windows, letting you jump straight to the page you need.
+
+<figure style="margin: 32px 0; text-align: center;">
+  <img src="/blog-assets/tab-manager-plus-alternative/Screenshot_2026-10-30_115251.png" alt="Tab Manager Plus popup in dark mode showing open windows as grouped tab tiles with a search tabs bar" width="1917" height="910" loading="lazy" style="width: 100%; height: auto; border-radius: 12px; display: block; margin: 0 auto;" />
+  <figcaption style="margin-top: 10px; font-size: 13.5px; color: var(--color-text-secondary); font-style: italic;">Tab Manager Plus showing open windows as tiles, with the tab search bar at the bottom.</figcaption>
+</figure>
 
 Because it is open source and runs entirely on your machine without mandatory account sign-ups or paywalls, it built a loyal following among developers and power users who respect local data control.
 
@@ -76,6 +84,12 @@ This approach separates storage from active browsing:
 If you have hit the ceiling of what visual grids can offer and want a structured directory system, [Tab Explorer](https://chromewebstore.google.com/detail/tab-explorer/ijcnikejbjffhcnblofckaihgchkiged) provides an alternative built around desktop file-manager conventions.
 
 Operating inside Chrome's native side panel, it replaces flat grids with an expandable tree of workspaces, folders, links, and local documents.
+
+:::slider
+![Tab Explorer side panel with a Fall Semester workspace and nested BIO 201 folders open beside a YouTube page](/blog-assets/tab-manager-plus-alternative/1030__1_.gif "Tab Explorer opens in Chrome’s side panel next to the page you are working on.")
+![Two saved links selected in the Tab Explorer side panel inside the Fall Semester workspace](/blog-assets/tab-manager-plus-alternative/1030__2_.gif "Select the links you want to keep, then move them where they belong.")
+![Tab Explorer folder tree with the BIO 201 folder highlighted and its subfolders and links listed below](/blog-assets/tab-manager-plus-alternative/1030__3__1_.gif "Drop them into a folder and your project stays organized, ready to reopen later.")
+:::
 
 ### How It Differs From Tab Manager Plus:
 

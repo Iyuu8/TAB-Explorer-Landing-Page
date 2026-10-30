@@ -60,6 +60,16 @@ export default function BlogPost() {
         sliders.forEach((container) => {
           if (container.dataset.initialized) return;
           container.dataset.initialized = 'true';
+          container.tabIndex = 0;
+          container.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+              e.preventDefault();
+              window.__blogSliderPrev(container.id);
+            } else if (e.key === 'ArrowRight') {
+              e.preventDefault();
+              window.__blogSliderNext(container.id);
+            }
+          });
           const track = container.querySelector('.blog-slider-track');
           const slides = container.querySelectorAll('.blog-slider-slide');
           if (!track || slides.length <= 1) return;
@@ -309,12 +319,16 @@ export default function BlogPost() {
       {/* Article Body Content */}
       <main className="container" style={{ maxWidth: '820px', paddingTop: '44px' }}>
         {/* Cover Image (displayed as the first thing in the article below the title/subtitles/tags) */}
-        {post.coverImage && (
+        {post.coverImage && !post.html.includes(post.coverImage) && (
           <div className="blog-post-cover-wrapper">
             <img
               src={post.coverImage}
               alt={post.title}
               className="blog-post-cover-img"
+              width="1536"
+              height="1024"
+              loading="eager"
+              fetchpriority="high"
             />
           </div>
         )}
@@ -566,6 +580,7 @@ export default function BlogPost() {
         }
         .blog-slider-img-wrap {
           width: 100%;
+          aspect-ratio: 1080 / 575;
           display: flex;
           align-items: center;
           justify-content: center;

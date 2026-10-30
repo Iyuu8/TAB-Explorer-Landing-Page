@@ -5,8 +5,15 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 30 Oct 2026 14:53:45 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 30 Oct 2026 15:18:01 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[Tab Manager Plus Alternative: When You Need Folders, Not Just a Tab Grid]]></title>
+    <link>https://tabexplorer.site/blog/tab-manager-plus-alternative</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/tab-manager-plus-alternative</guid>
+    <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[An honest comparison of Tab Manager Plus and folder-based tab managers. Learn when a visual tab grid works and when you need persistent project folders.]]></description>
+  </item>
   <item>
     <title><![CDATA[AI Power Users: Keep ChatGPT, Claude and Gemini Sessions Organized Per Project]]></title>
     <link>https://tabexplorer.site/blog/organize-ai-chats-by-project</link>

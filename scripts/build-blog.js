@@ -79,8 +79,8 @@ function transformSliders(content) {
       .map((item, index) => {
         return `
             <div class="blog-slider-slide" data-slide-index="${index}">
-              <div class="blog-slider-img-wrap">
-                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" loading="lazy" />
+              <div class="blog-slider-img-wrap" style="aspect-ratio: 1080 / 575; width: 100%; display: flex; align-items: center; justify-content: center;">
+                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" width="1080" height="575" ${index === 0 ? 'loading="eager"' : 'loading="lazy"'} />
               </div>
               ${item.caption ? `<div class="blog-slider-caption">${escapeHtml(item.caption)}</div>` : ''}
             </div>`;
@@ -96,7 +96,7 @@ function transformSliders(content) {
       .join('\n');
 
     return `\n
-<div class="blog-slider-container" id="${sliderId}" data-active-index="0">
+<div class="blog-slider-container" id="${sliderId}" data-active-index="0" tabindex="0" role="region" aria-label="Image slider">
   <div class="blog-slider-viewport">
     ${
       items.length > 1
@@ -270,9 +270,9 @@ function renderPostStaticMarkup(post) {
           <!-- Pre-rendered Markdown HTML Content -->
           <div class="container" style="max-width: 820px; padding-top: 44px;">
             ${
-              post.coverImage
+              post.coverImage && (!post.html || !post.html.includes(post.coverImage))
                 ? `<div class="blog-post-cover-wrapper" style="margin-bottom: 36px; border-radius: 16px; overflow: hidden; border: 1px solid #E2EBF2; box-shadow: 0 8px 30px rgba(0, 65, 101, 0.08); background-color: #F8FAFC;">
-                    <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-post-cover-img" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" />
+                    <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-post-cover-img" width="1536" height="1024" loading="eager" fetchpriority="high" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" />
                   </div>`
                 : ''
             }

@@ -223,6 +223,18 @@ export default function BlogList() {
                     transition: 'all 0.2s ease',
                   }}
                 >
+                  {/* Card Cover Image */}
+                  {post.coverImage && (
+                    <Link to={`/blog/${post.slug}`} className="blog-card-cover-wrapper">
+                      <img
+                        src={post.coverImage}
+                        alt={post.title}
+                        className="blog-card-cover-img"
+                        loading="lazy"
+                      />
+                    </Link>
+                  )}
+
                   {/* Card Meta Header */}
                   <div
                     style={{

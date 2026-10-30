@@ -58,13 +58,34 @@ function auditAssetUsage() {
   const posts = fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md'));
 
   for (const post of posts) {
-    const content = fs.readFileSync(path.join(POSTS_DIR, post), 'utf8');
+    const rawContent = fs.readFileSync(path.join(POSTS_DIR, post), 'utf8');
     const slug = post.replace('.md', '');
-    const imgRegex = /!\[.*?\]\((.*?)\)/g;
-    let match;
+    const foundSources = [];
 
-    while ((match = imgRegex.exec(content)) !== null) {
-      const src = match[1].trim();
+    // Front matter cover image
+    const fmMatch = rawContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (fmMatch) {
+      const coverMatch = fmMatch[1].match(/(?:coverImage|cover|image):\s*["']?(.*?)["']?(?:\r?\n|$)/i);
+      if (coverMatch && coverMatch[1].trim()) {
+        foundSources.push(coverMatch[1].trim());
+      }
+    }
+
+    // Markdown images
+    const imgRegex = /!\[.*?\]\((.*?)(?:\s+["'].*?["'])?\)/g;
+    let match;
+    while ((match = imgRegex.exec(rawContent)) !== null) {
+      foundSources.push(match[1].trim());
+    }
+
+    // HTML images
+    const htmlImgRegex = /<img\s+[^>]*?src=["'](.*?)["']/gi;
+    let hMatch;
+    while ((hMatch = htmlImgRegex.exec(rawContent)) !== null) {
+      foundSources.push(hMatch[1].trim());
+    }
+
+    for (const src of foundSources) {
       for (const asset of PROJECT_ASSETS) {
         let isMatch = false;
         if (src.includes(asset)) {

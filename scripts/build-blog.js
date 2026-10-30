@@ -30,6 +30,106 @@ function escapeJson(str) {
     .replace(/\r/g, '\\r');
 }
 
+// Transform :::slider or <slider> blocks into interactive horizontal image sliders
+function transformSliders(content) {
+  if (!content) return '';
+
+  const sliderBlockRegex = /(?:^|\n)(?:::+(?:slider|carousel)|<slider\b[^>]*>|<div\s+class=["'](?:image-slider|slider|carousel)["'][^>]*>)\s*([\s\S]*?)\s*(?:::+|<\/slider>|<\/div>)(?:\n|$)/gi;
+
+  let sliderCounter = 0;
+
+  return content.replace(sliderBlockRegex, (match, innerContent) => {
+    sliderCounter++;
+    const sliderId = `blog-slider-${sliderCounter}`;
+
+    const items = [];
+    const mdImgRegex = /!\[(.*?)\]\((.*?)(?:\s+["'](.*?)["'])?\)/g;
+    let m;
+    while ((m = mdImgRegex.exec(innerContent)) !== null) {
+      items.push({
+        alt: (m[1] || '').trim(),
+        src: (m[2] || '').trim(),
+        caption: (m[3] || m[1] || '').trim(),
+      });
+    }
+
+    if (items.length === 0) {
+      const htmlImgRegex = /<img\s+([^>]*?)>/gi;
+      let h;
+      while ((h = htmlImgRegex.exec(innerContent)) !== null) {
+        const attrStr = h[1];
+        const srcMatch = attrStr.match(/src=["'](.*?)["']/i);
+        const altMatch = attrStr.match(/alt=["'](.*?)["']/i);
+        const titleMatch = attrStr.match(/title=["'](.*?)["']/i);
+        if (srcMatch) {
+          items.push({
+            src: srcMatch[1],
+            alt: altMatch ? altMatch[1] : '',
+            caption: titleMatch ? titleMatch[1] : (altMatch ? altMatch[1] : ''),
+          });
+        }
+      }
+    }
+
+    if (items.length === 0) {
+      return match;
+    }
+
+    const slidesHtml = items
+      .map((item, index) => {
+        return `
+            <div class="blog-slider-slide" data-slide-index="${index}">
+              <div class="blog-slider-img-wrap">
+                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" loading="lazy" />
+              </div>
+              ${item.caption ? `<div class="blog-slider-caption">${escapeHtml(item.caption)}</div>` : ''}
+            </div>`;
+      })
+      .join('\n');
+
+    const dotsHtml = items
+      .map((_, index) => {
+        return `<button type="button" class="blog-slider-dot ${
+          index === 0 ? 'active' : ''
+        }" data-index="${index}" aria-label="Go to slide ${index + 1}" onclick="window.__blogSliderGoTo && window.__blogSliderGoTo('${sliderId}', ${index})"></button>`;
+      })
+      .join('\n');
+
+    return `\n
+<div class="blog-slider-container" id="${sliderId}" data-active-index="0">
+  <div class="blog-slider-viewport">
+    ${
+      items.length > 1
+        ? `<button type="button" class="blog-slider-btn prev" aria-label="Previous slide" onclick="window.__blogSliderPrev && window.__blogSliderPrev('${sliderId}')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>`
+        : ''
+    }
+    <div class="blog-slider-track" id="${sliderId}-track">
+${slidesHtml}
+    </div>
+    ${
+      items.length > 1
+        ? `<button type="button" class="blog-slider-btn next" aria-label="Next slide" onclick="window.__blogSliderNext && window.__blogSliderNext('${sliderId}')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>`
+        : ''
+    }
+  </div>
+  ${
+    items.length > 1
+      ? `<div class="blog-slider-footer">
+    <div class="blog-slider-dots">
+${dotsHtml}
+    </div>
+    <div class="blog-slider-counter"><span class="blog-slider-current">1</span> / ${items.length}</div>
+  </div>`
+      : ''
+  }
+</div>\n`;
+  });
+}
+
 // Simple frontmatter parser
 function parseFrontmatter(fileContent) {
   const match = fileContent.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
@@ -169,6 +269,13 @@ function renderPostStaticMarkup(post) {
 
           <!-- Pre-rendered Markdown HTML Content -->
           <div class="container" style="max-width: 820px; padding-top: 44px;">
+            ${
+              post.coverImage
+                ? `<div class="blog-post-cover-wrapper" style="margin-bottom: 36px; border-radius: 16px; overflow: hidden; border: 1px solid #E2EBF2; box-shadow: 0 8px 30px rgba(0, 65, 101, 0.08); background-color: #F8FAFC;">
+                    <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-post-cover-img" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" />
+                  </div>`
+                : ''
+            }
             <div class="blog-content-body" style="font-size: 17px; line-height: 1.75; color: #1E293B;">
               ${post.html}
             </div>
@@ -239,6 +346,78 @@ function renderPostStaticMarkup(post) {
           </div>
         </div>
       </footer>
+
+      <!-- Interactive Image Slider Script -->
+      <script>
+        (function() {
+          window.__blogSliderGoTo = function(sliderId, index) {
+            var container = document.getElementById(sliderId);
+            if (!container) return;
+            var track = container.querySelector('.blog-slider-track');
+            var slides = container.querySelectorAll('.blog-slider-slide');
+            if (!track || !slides || !slides[index]) return;
+            track.scrollTo({ left: slides[index].offsetLeft, behavior: 'smooth' });
+            container.setAttribute('data-active-index', index);
+            container.querySelectorAll('.blog-slider-dot').forEach(function(dot, i) {
+              if (i === index) dot.classList.add('active'); else dot.classList.remove('active');
+            });
+            var counter = container.querySelector('.blog-slider-current');
+            if (counter) counter.textContent = index + 1;
+          };
+
+          window.__blogSliderPrev = function(sliderId) {
+            var container = document.getElementById(sliderId);
+            if (!container) return;
+            var current = parseInt(container.getAttribute('data-active-index') || '0', 10);
+            var slides = container.querySelectorAll('.blog-slider-slide');
+            var next = current > 0 ? current - 1 : slides.length - 1;
+            window.__blogSliderGoTo(sliderId, next);
+          };
+
+          window.__blogSliderNext = function(sliderId) {
+            var container = document.getElementById(sliderId);
+            if (!container) return;
+            var current = parseInt(container.getAttribute('data-active-index') || '0', 10);
+            var slides = container.querySelectorAll('.blog-slider-slide');
+            var next = current < slides.length - 1 ? current + 1 : 0;
+            window.__blogSliderGoTo(sliderId, next);
+          };
+
+          window.__initBlogSliders = function() {
+            var sliders = document.querySelectorAll('.blog-slider-container');
+            sliders.forEach(function(container) {
+              if (container.dataset.initialized) return;
+              container.dataset.initialized = 'true';
+              var track = container.querySelector('.blog-slider-track');
+              var slides = container.querySelectorAll('.blog-slider-slide');
+              if (!track || slides.length <= 1) return;
+
+              var timer;
+              track.addEventListener('scroll', function() {
+                clearTimeout(timer);
+                timer = setTimeout(function() {
+                  var width = track.clientWidth || 1;
+                  var newIndex = Math.round(track.scrollLeft / width);
+                  if (newIndex >= 0 && newIndex < slides.length) {
+                    container.setAttribute('data-active-index', newIndex);
+                    container.querySelectorAll('.blog-slider-dot').forEach(function(dot, i) {
+                      if (i === newIndex) dot.classList.add('active'); else dot.classList.remove('active');
+                    });
+                    var counter = container.querySelector('.blog-slider-current');
+                    if (counter) counter.textContent = newIndex + 1;
+                  }
+                }, 50);
+              }, { passive: true });
+            });
+          };
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', window.__initBlogSliders);
+          } else {
+            window.__initBlogSliders();
+          }
+        })();
+      </script>
     </div>
   `;
 }
@@ -266,6 +445,13 @@ function renderBlogIndexStaticMarkup(posts) {
 
             return `
             <article class="bento-card" style="background-color: #FFFFFF; border: 1px solid #D2E7F5; border-radius: 18px; padding: 32px;">
+              ${
+                post.coverImage
+                  ? `<a href="/blog/${post.slug}" class="blog-card-cover-wrapper" style="display: block; margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #E2EBF2; aspect-ratio: 16 / 9; max-height: 320px; background-color: #F8FAFC; text-decoration: none;">
+                      <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-card-cover-img" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+                    </a>`
+                  : ''
+              }
               <div style="display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--color-text-secondary); margin-bottom: 12px; flex-wrap: wrap;">
                 <span style="padding: 3px 10px; border-radius: 100px; background-color: #EAF4FA; color: var(--color-brand); font-weight: 600; font-size: 12px;">${escapeHtml(
                   post.category
@@ -512,6 +698,10 @@ function prerenderStaticPages(posts) {
     }
 
     const postUrl = `${SITE_URL}/blog/${post.slug}`;
+    const coverImageUrl = post.coverImage
+      ? (post.coverImage.startsWith('http') ? post.coverImage : `${SITE_URL}${post.coverImage.startsWith('/') ? '' : '/'}${post.coverImage}`)
+      : `${SITE_URL}/assets/marquee-promo-tile-1400x560.png`;
+
     const postJsonLd = {
       '@context': 'https://schema.org',
       '@type': 'BlogPosting',
@@ -536,7 +726,7 @@ function prerenderStaticPages(posts) {
           url: `${SITE_URL}/assets/icon-128.png`,
         },
       },
-      image: `${SITE_URL}/assets/marquee-promo-tile-1400x560.png`,
+      image: coverImageUrl,
     };
 
     const postStaticHtml = transformHtml(baseHtml, {
@@ -544,7 +734,7 @@ function prerenderStaticPages(posts) {
       description: post.description,
       url: postUrl,
       ogType: 'article',
-      image: `${SITE_URL}/assets/marquee-promo-tile-1400x560.png`,
+      image: coverImageUrl,
       articleMeta: {
         publishedTime: post.date,
         author: post.author,
@@ -589,9 +779,11 @@ function buildBlog() {
     const category = data.category || 'Productivity';
     const tags = Array.isArray(data.tags) ? data.tags : [];
     const readTime = data.readTime || `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`;
+    const coverImage = data.coverImage || data.cover || data.image || '';
 
-    // Render markdown to HTML
-    const html = marked.parse(content);
+    // Render markdown to HTML (transforming image sliders first)
+    const transformedContent = transformSliders(content);
+    const html = marked.parse(transformedContent);
 
     posts.push({
       slug,
@@ -602,6 +794,7 @@ function buildBlog() {
       category,
       tags,
       readTime,
+      coverImage,
       html,
       rawContent: content,
       fileName: file,

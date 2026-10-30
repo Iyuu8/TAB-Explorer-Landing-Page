@@ -155,14 +155,41 @@ function verifyArticle(filePath) {
   }
 
   // Images check (User-driven workflow: images are optional, validated if present)
-  const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
+  const imageRegex = /!\[(.*?)\]\((.*?)(?:\s+["'].*?["'])?\)/g;
   const images = [];
   let imgMatch;
   while ((imgMatch = imageRegex.exec(content)) !== null) {
-    images.push({ alt: imgMatch[1].trim(), src: imgMatch[2].trim() });
+    images.push({ alt: imgMatch[1].trim(), src: imgMatch[2].trim(), type: 'markdown' });
+  }
+
+  // Also check HTML <img> tags (including inside <slider> or <div> blocks)
+  const htmlImgRegex = /<img\s+([^>]*?)>/gi;
+  let htmlMatch;
+  while ((htmlMatch = htmlImgRegex.exec(content)) !== null) {
+    const attrStr = htmlMatch[1];
+    const srcMatch = attrStr.match(/src=["'](.*?)["']/i);
+    const altMatch = attrStr.match(/alt=["'](.*?)["']/i);
+    if (srcMatch) {
+      images.push({
+        alt: altMatch ? altMatch[1].trim() : '',
+        src: srcMatch[1].trim(),
+        type: 'html'
+      });
+    }
   }
 
   const publicDir = path.join(__dirname, '..', 'public');
+
+  // Validate Cover Image if defined in front matter
+  const coverImage = data.coverImage || data.cover || data.image;
+  if (coverImage) {
+    if (coverImage.startsWith('/')) {
+      const localCover = path.join(publicDir, coverImage.replace(/^\//, ''));
+      if (!fs.existsSync(localCover)) {
+        errors.push(`Cover image does not exist on disk: ${coverImage} (checked at ${localCover})`);
+      }
+    }
+  }
 
   for (const img of images) {
     if (!img.alt) {
@@ -195,7 +222,8 @@ function verifyArticle(filePath) {
     words,
     title: data.title,
     slug: data.slug,
-    totalImages: images.length,
+    coverImage: coverImage || null,
+    totalImages: images.length + (coverImage ? 1 : 0),
     images
   };
 }
@@ -211,6 +239,9 @@ if (require.main === module) {
   if (result.ok) {
     console.log(`[Verifier] PASS: "${result.title}" (${result.words} words)`);
     console.log(`[Verifier] Canonical URL: https://tabexplorer.site/blog/${result.slug}`);
+    if (result.coverImage) {
+      console.log(`[Verifier] Cover Image: ${result.coverImage}`);
+    }
     console.log(`[Verifier] Visuals: ${result.totalImages} image(s) verified`);
     console.log('[Verifier] SEO & Social tags verified: Title, Description, Open Graph, Twitter Cards, BlogPosting JSON-LD.');
     if (result.warnings.length > 0) {

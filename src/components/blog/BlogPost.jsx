@@ -27,7 +27,8 @@ export default function BlogPost() {
         const track = container.querySelector('.blog-slider-track');
         const slides = container.querySelectorAll('.blog-slider-slide');
         if (!track || !slides || !slides[index]) return;
-        track.scrollTo({ left: slides[index].offsetLeft, behavior: 'smooth' });
+        const targetLeft = slides[index].offsetLeft || (index * track.clientWidth);
+        track.scrollTo({ left: targetLeft, behavior: 'smooth' });
         container.setAttribute('data-active-index', index);
         container.querySelectorAll('.blog-slider-dot').forEach((dot, i) => {
           if (i === index) dot.classList.add('active');
@@ -520,18 +521,23 @@ export default function BlogPost() {
 
         /* Cover Image Styling */
         .blog-post-cover-wrapper {
-          margin-bottom: 36px;
+          margin: 0 auto 36px auto;
           border-radius: 16px;
           overflow: hidden;
           border: 1px solid #E2EBF2;
           box-shadow: 0 8px 30px rgba(0, 65, 101, 0.08);
           background-color: #F8FAFC;
+          max-width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         .blog-post-cover-img {
           width: 100%;
           max-height: 480px;
           object-fit: cover;
           display: block;
+          margin: 0 auto;
         }
 
         /* Blog Slider Styling */
@@ -544,18 +550,24 @@ export default function BlogPost() {
           overflow: hidden;
           position: relative;
           user-select: none;
+          max-width: 100%;
+          box-sizing: border-box;
         }
         .blog-slider-viewport {
           position: relative;
           display: flex;
           align-items: center;
           width: 100%;
+          overflow: hidden;
+          background-color: #F8FAFC;
         }
         .blog-slider-track {
           display: flex;
           flex-direction: row;
           flex-wrap: nowrap;
           width: 100%;
+          min-width: 0;
+          position: relative;
           overflow-x: auto;
           scroll-snap-type: x mandatory;
           scroll-behavior: smooth;
@@ -565,67 +577,72 @@ export default function BlogPost() {
         }
         .blog-slider-track::-webkit-scrollbar {
           display: none;
+          width: 0;
+          height: 0;
         }
         .blog-slider-slide {
           flex: 0 0 100%;
+          min-width: 100%;
+          max-width: 100%;
           width: 100%;
-          scroll-snap-align: center;
+          scroll-snap-align: start;
           scroll-snap-stop: always;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: 16px 16px 8px 16px;
+          padding: 18px 18px 12px 18px;
           box-sizing: border-box;
         }
         .blog-slider-img-wrap {
           width: 100%;
-          aspect-ratio: 1080 / 575;
           display: flex;
           align-items: center;
           justify-content: center;
-          max-height: 480px;
+          min-height: 240px;
+          max-height: 520px;
           overflow: hidden;
-          border-radius: 10px;
+          border-radius: 12px;
           background-color: #FFFFFF;
           border: 1px solid #E2EBF2;
         }
         .blog-slider-slide img {
           max-width: 100% !important;
-          max-height: 460px !important;
+          max-height: 500px !important;
           width: auto !important;
           height: auto !important;
           object-fit: contain !important;
           display: block !important;
-          margin: 0 !important;
+          margin: 0 auto !important;
           border: none !important;
           box-shadow: none !important;
           border-radius: 8px !important;
         }
         .blog-slider-caption {
-          margin-top: 10px;
-          font-size: 13.5px;
+          margin-top: 12px;
+          font-size: 14px;
+          line-height: 1.5;
           color: var(--color-text-secondary);
           text-align: center;
           font-weight: 500;
           min-height: 20px;
-          padding: 0 12px;
+          padding: 0 16px;
         }
         .blog-slider-btn {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
-          background-color: rgba(255, 255, 255, 0.92);
+          background-color: rgba(255, 255, 255, 0.94);
           border: 1px solid #D2E7F5;
           color: var(--color-ink);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          z-index: 5;
+          z-index: 10;
           box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
           transition: all 0.2s ease;
           backdrop-filter: blur(8px);
@@ -648,9 +665,11 @@ export default function BlogPost() {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          padding: 10px 20px 14px 20px;
+          padding: 12px 24px;
           border-top: 1px solid #EAF0F6;
           background-color: #FFFFFF;
+          box-sizing: border-box;
+          width: 100%;
         }
         .blog-slider-dots {
           display: flex;
@@ -684,6 +703,13 @@ export default function BlogPost() {
           .blog-slider-slide {
             padding: 10px 10px 6px 10px;
           }
+          .blog-slider-img-wrap {
+            min-height: 180px;
+            max-height: 340px;
+          }
+          .blog-slider-slide img {
+            max-height: 320px !important;
+          }
           .blog-slider-btn {
             width: 32px;
             height: 32px;
@@ -693,6 +719,13 @@ export default function BlogPost() {
           }
           .blog-slider-btn.next {
             right: 8px;
+          }
+          .blog-slider-btn svg {
+            width: 16px;
+            height: 16px;
+          }
+          .blog-slider-footer {
+            padding: 8px 14px 10px 14px;
           }
         }
       `}</style>

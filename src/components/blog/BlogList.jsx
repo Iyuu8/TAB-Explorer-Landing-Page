@@ -225,12 +225,17 @@ export default function BlogList() {
                 >
                   {/* Card Cover Image */}
                   {post.coverImage && (
-                    <Link to={`/blog/${post.slug}`} className="blog-card-cover-wrapper">
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="blog-card-cover-wrapper"
+                      style={{ margin: '0 auto 20px auto' }}
+                    >
                       <img
                         src={post.coverImage}
                         alt={post.title}
                         className="blog-card-cover-img"
                         loading="lazy"
+                        style={{ margin: '0 auto' }}
                       />
                     </Link>
                   )}

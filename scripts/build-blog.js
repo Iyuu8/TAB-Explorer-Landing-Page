@@ -30,15 +30,17 @@ function escapeJson(str) {
     .replace(/\r/g, '\\r');
 }
 
-// Transform :::slider or <slider> blocks into interactive horizontal image sliders
-function transformSliders(content) {
+// Render markdown to HTML safely with interactive image sliders (preventing indented code-block interference)
+function renderMarkdownWithSliders(content) {
   if (!content) return '';
 
+  const normalized = content.replace(/\r\n/g, '\n');
   const sliderBlockRegex = /(?:^|\n)(?:::+(?:slider|carousel)|<slider\b[^>]*>|<div\s+class=["'](?:image-slider|slider|carousel)["'][^>]*>)\s*([\s\S]*?)\s*(?:::+|<\/slider>|<\/div>)(?:\n|$)/gi;
 
+  const sliderPlaceholders = [];
   let sliderCounter = 0;
 
-  return content.replace(sliderBlockRegex, (match, innerContent) => {
+  const preprocessed = normalized.replace(sliderBlockRegex, (match, innerContent) => {
     sliderCounter++;
     const sliderId = `blog-slider-${sliderCounter}`;
 
@@ -77,57 +79,47 @@ function transformSliders(content) {
 
     const slidesHtml = items
       .map((item, index) => {
-        return `
-            <div class="blog-slider-slide" data-slide-index="${index}">
-              <div class="blog-slider-img-wrap" style="aspect-ratio: 1080 / 575; width: 100%; display: flex; align-items: center; justify-content: center;">
-                <img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" width="1080" height="575" ${index === 0 ? 'loading="eager"' : 'loading="lazy"'} />
-              </div>
-              ${item.caption ? `<div class="blog-slider-caption">${escapeHtml(item.caption)}</div>` : ''}
-            </div>`;
+        return `<div class="blog-slider-slide" data-slide-index="${index}"><div class="blog-slider-img-wrap"><img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.alt)}" ${index === 0 ? 'loading="eager"' : 'loading="lazy"'} /></div>${item.caption ? `<div class="blog-slider-caption">${escapeHtml(item.caption)}</div>` : ''}</div>`;
       })
-      .join('\n');
+      .join('');
 
     const dotsHtml = items
       .map((_, index) => {
-        return `<button type="button" class="blog-slider-dot ${
-          index === 0 ? 'active' : ''
-        }" data-index="${index}" aria-label="Go to slide ${index + 1}" onclick="window.__blogSliderGoTo && window.__blogSliderGoTo('${sliderId}', ${index})"></button>`;
+        return `<button type="button" class="blog-slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}" aria-label="Go to slide ${index + 1}" onclick="window.__blogSliderGoTo && window.__blogSliderGoTo('${sliderId}', ${index})"></button>`;
       })
-      .join('\n');
+      .join('');
 
-    return `\n
-<div class="blog-slider-container" id="${sliderId}" data-active-index="0" tabindex="0" role="region" aria-label="Image slider">
-  <div class="blog-slider-viewport">
-    ${
-      items.length > 1
-        ? `<button type="button" class="blog-slider-btn prev" aria-label="Previous slide" onclick="window.__blogSliderPrev && window.__blogSliderPrev('${sliderId}')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-    </button>`
-        : ''
-    }
-    <div class="blog-slider-track" id="${sliderId}-track">
-${slidesHtml}
-    </div>
-    ${
-      items.length > 1
-        ? `<button type="button" class="blog-slider-btn next" aria-label="Next slide" onclick="window.__blogSliderNext && window.__blogSliderNext('${sliderId}')">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-    </button>`
-        : ''
-    }
-  </div>
-  ${
-    items.length > 1
-      ? `<div class="blog-slider-footer">
-    <div class="blog-slider-dots">
-${dotsHtml}
-    </div>
-    <div class="blog-slider-counter"><span class="blog-slider-current">1</span> / ${items.length}</div>
-  </div>`
-      : ''
-  }
-</div>\n`;
+    const prevBtn = items.length > 1
+      ? `<button type="button" class="blog-slider-btn prev" aria-label="Previous slide" onclick="window.__blogSliderPrev && window.__blogSliderPrev('${sliderId}')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>`
+      : '';
+
+    const nextBtn = items.length > 1
+      ? `<button type="button" class="blog-slider-btn next" aria-label="Next slide" onclick="window.__blogSliderNext && window.__blogSliderNext('${sliderId}')"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>`
+      : '';
+
+    const footer = items.length > 1
+      ? `<div class="blog-slider-footer"><div class="blog-slider-dots">${dotsHtml}</div><div class="blog-slider-counter"><span class="blog-slider-current">1</span> / ${items.length}</div></div>`
+      : '';
+
+    const sliderHtml = `<div class="blog-slider-container" id="${sliderId}" data-active-index="0" tabindex="0" role="region" aria-label="Image slider"><div class="blog-slider-viewport">${prevBtn}<div class="blog-slider-track" id="${sliderId}-track">${slidesHtml}</div>${nextBtn}</div>${footer}</div>`;
+
+    const token = `BLOGSLIDERTOKEN${sliderCounter}XYZ`;
+    sliderPlaceholders.push({ token, html: sliderHtml });
+    return `\n\n${token}\n\n`;
   });
+
+  let renderedHtml = marked.parse(preprocessed);
+
+  sliderPlaceholders.forEach(({ token, html }) => {
+    const pRegex = new RegExp(`<p>\\s*${token}\\s*<\\/p>`, 'g');
+    if (pRegex.test(renderedHtml)) {
+      renderedHtml = renderedHtml.replace(pRegex, html);
+    } else {
+      renderedHtml = renderedHtml.replace(token, html);
+    }
+  });
+
+  return renderedHtml;
 }
 
 // Simple frontmatter parser
@@ -271,8 +263,8 @@ function renderPostStaticMarkup(post) {
           <div class="container" style="max-width: 820px; padding-top: 44px;">
             ${
               post.coverImage && (!post.html || !post.html.includes(post.coverImage))
-                ? `<div class="blog-post-cover-wrapper" style="margin-bottom: 36px; border-radius: 16px; overflow: hidden; border: 1px solid #E2EBF2; box-shadow: 0 8px 30px rgba(0, 65, 101, 0.08); background-color: #F8FAFC;">
-                    <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-post-cover-img" width="1536" height="1024" loading="eager" fetchpriority="high" style="width: 100%; max-height: 480px; object-fit: cover; display: block;" />
+                ? `<div class="blog-post-cover-wrapper" style="margin-left: auto; margin-right: auto; margin-bottom: 36px; border-radius: 16px; overflow: hidden; border: 1px solid #E2EBF2; box-shadow: 0 8px 30px rgba(0, 65, 101, 0.08); background-color: #F8FAFC; max-width: 100%; display: flex; justify-content: center; align-items: center;">
+                    <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-post-cover-img" width="1536" height="1024" loading="eager" fetchpriority="high" style="width: 100%; max-height: 480px; object-fit: cover; display: block; margin: 0 auto;" />
                   </div>`
                 : ''
             }
@@ -356,7 +348,8 @@ function renderPostStaticMarkup(post) {
             var track = container.querySelector('.blog-slider-track');
             var slides = container.querySelectorAll('.blog-slider-slide');
             if (!track || !slides || !slides[index]) return;
-            track.scrollTo({ left: slides[index].offsetLeft, behavior: 'smooth' });
+            var targetLeft = slides[index].offsetLeft || (index * track.clientWidth);
+            track.scrollTo({ left: targetLeft, behavior: 'smooth' });
             container.setAttribute('data-active-index', index);
             container.querySelectorAll('.blog-slider-dot').forEach(function(dot, i) {
               if (i === index) dot.classList.add('active'); else dot.classList.remove('active');
@@ -447,8 +440,8 @@ function renderBlogIndexStaticMarkup(posts) {
             <article class="bento-card" style="background-color: #FFFFFF; border: 1px solid #D2E7F5; border-radius: 18px; padding: 32px;">
               ${
                 post.coverImage
-                  ? `<a href="/blog/${post.slug}" class="blog-card-cover-wrapper" style="display: block; margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #E2EBF2; aspect-ratio: 16 / 9; max-height: 320px; background-color: #F8FAFC; text-decoration: none;">
-                      <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-card-cover-img" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy" />
+                  ? `<a href="/blog/${post.slug}" class="blog-card-cover-wrapper" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #E2EBF2; aspect-ratio: 16 / 9; max-height: 340px; max-width: 100%; background-color: #F8FAFC; text-decoration: none;">
+                      <img src="${escapeHtml(post.coverImage)}" alt="${escapeHtml(post.title)}" class="blog-card-cover-img" style="width: 100%; height: 100%; object-fit: cover; display: block; margin: 0 auto;" loading="lazy" />
                     </a>`
                   : ''
               }
@@ -781,9 +774,8 @@ function buildBlog() {
     const readTime = data.readTime || `${Math.max(1, Math.ceil(content.split(/\s+/).length / 200))} min read`;
     const coverImage = data.coverImage || data.cover || data.image || '';
 
-    // Render markdown to HTML (transforming image sliders first)
-    const transformedContent = transformSliders(content);
-    const html = marked.parse(transformedContent);
+    // Render markdown to HTML safely with sliders transformed without code block interference
+    const html = renderMarkdownWithSliders(content);
 
     posts.push({
       slug,

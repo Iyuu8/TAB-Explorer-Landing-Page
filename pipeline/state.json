@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-10-30T15:18:01.771Z",
+  "lastUpdated": "2026-11-02T20:19:38.185Z",
   "activeDraft": null,
   "topics": [
     {
@@ -113,10 +113,10 @@
     },
     {
       "title": "Tab Wrangler Alternative: Auto-Closing Tabs vs Organizing Them on Purpose",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "tab-wrangler-alternative.md",
+      "slug": "tab-wrangler-alternative",
+      "publishedDate": "2026-11-02",
       "primaryKeyword": "tab wrangler alternative",
       "secondaryKeywords": [
         "auto close inactive tabs chrome",

@@ -5,8 +5,15 @@
   <link>https://tabexplorer.site/blog</link>
   <description>Practical guides, productivity workflows, and updates from the creators of TAB Explorer for Google Chrome.</description>
   <language>en-us</language>
-  <lastBuildDate>Mon, 02 Nov 2026 20:20:36 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 05 Nov 2026 19:02:01 GMT</lastBuildDate>
   <atom:link href="https://tabexplorer.site/rss.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title><![CDATA[Tab Session Manager Alternative: Save Sessions vs Build a Permanent Workspace]]></title>
+    <link>https://tabexplorer.site/blog/tab-session-manager-alternative</link>
+    <guid isPermaLink="true">https://tabexplorer.site/blog/tab-session-manager-alternative</guid>
+    <pubDate>Thu, 05 Nov 2026 00:00:00 GMT</pubDate>
+    <description><![CDATA[Comparing browser session snapshots with structured workspaces. Learn when saving temporary sessions makes sense and when you need persistent project folders.]]></description>
+  </item>
   <item>
     <title><![CDATA[Tab Wrangler Alternative: Auto-Closing Tabs vs Organizing Them on Purpose]]></title>
     <link>https://tabexplorer.site/blog/tab-wrangler-alternative</link>

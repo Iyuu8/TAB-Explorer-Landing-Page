@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2026-11-02T20:19:38.185Z",
+  "lastUpdated": "2026-11-05T19:01:15.227Z",
   "activeDraft": null,
   "topics": [
     {
@@ -131,10 +131,10 @@
     },
     {
       "title": "Tab Session Manager Alternative: Save Sessions vs Build a Permanent Workspace",
-      "status": "pending",
-      "fileName": null,
-      "slug": null,
-      "publishedDate": null,
+      "status": "published",
+      "fileName": "tab-session-manager-alternative.md",
+      "slug": "tab-session-manager-alternative",
+      "publishedDate": "2026-11-05",
       "primaryKeyword": "tab session manager alternative",
       "secondaryKeywords": [
         "tab session manager chrome",
